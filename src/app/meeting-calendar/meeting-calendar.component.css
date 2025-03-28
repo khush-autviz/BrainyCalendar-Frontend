@@ -1,0 +1,186 @@
+.img-bg-object {
+    position: absolute;
+    bottom: -46px;
+    right: 20px;
+    width: 140px;
+    object-fit: contain;
+}
+
+.calendar-wrapper-outter {
+    border-radius: var(--borderRadius);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+::ng-deep .fc .fc-toolbar-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--textColor);
+    margin: 0;
+}
+
+
+::ng-deep .fc-timegrid-axis {
+    white-space: nowrap;
+}
+
+::ng-deep .fc .fc-toolbar.fc-header-toolbar {
+    background: var(--highlight-blue) !important;
+    margin-bottom: 0 !important;
+}
+
+::ng-deep .fc.fc-theme-standard .fc-toolbar .fc-button-group .fc-button {
+    background: transparent !important;
+    border: 0 !important;
+    text-transform: capitalize;
+
+    &:hover {
+        background: transparent !important;
+    }
+}
+
+::ng-deep .fc-direction-ltr .fc-toolbar>*> :not(:first-child) {
+    text-transform: capitalize;
+}
+
+::ng-deep .fc.fc-theme-standard .fc-toolbar .fc-button {
+    background: transparent !important;
+    border: 1px solid var(--textColor) !important;
+
+    &:hover {
+        background: transparent !important;
+        /* border: 0 !important; */
+    }
+}
+
+::ng-deep .fc.fc-theme-standard .fc-toolbar .fc-button:disabled {
+    border: 0 !important;
+    background: transparent !important;
+    color: rgba(255, 255, 255, .7) !important;
+}
+
+
+
+::ng-deep .fc.fc-theme-standard .fc-toolbar .fc-button-group .fc-button-active {
+    color: #fff !important;
+}
+
+::ng-deep .fc.fc-theme-standard .fc-toolbar .fc-button-group .fc-button {
+    color: rgba(255, 255, 255, .7);
+
+    &:hover {
+        color: rgba(255, 255, 255, .7);
+    }
+}
+
+
+/* table UI start here */
+::ng-deep .fc.fc-theme-standard .fc-view-harness .fc-view {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+    padding: 1rem 1rem !important;
+
+    table {
+        border-color: var(--border-color) !important;
+    }
+
+    table tr th {
+        background: var(--card-bg) !important;
+        border-color: var(--border-color) !important;
+        color: var(--textColor) !important;
+    }
+
+    table tr td {
+        border-color: var(--border-color) !important;
+        color: var(--textColor) !important;
+    }
+}
+
+
+::ng-deep .fc.fc-theme-standard a {
+    color: var(--textColor) !important;
+}
+
+::ng-deep .fc.fc-theme-standard .fc-view-harness .fc-event.fc-daygrid-dot-event:hover {
+    background: var(--third-card-bg) !important;
+    color: var(--textColor) !important;
+}
+
+::ng-deep .fc-direction-ltr .fc-daygrid-event.fc-event-end {
+    align-items: start;
+    flex-wrap: wrap;
+    padding: 6px;
+}
+
+::ng-deep .fc.fc-theme-standard .fc-view-harness .fc-event.fc-daygrid-dot-event .fc-daygrid-event-dot {
+    margin-top: 6px;
+}
+
+
+::ng-deep .fc-daygrid-dot-event .fc-event-title {
+    white-space: wrap;
+    font-weight: 400;
+}
+
+::ng-deep .fc-timegrid-event-harness.fc-timegrid-event-harness-inset {
+    inset: 380px 0% -447px !important;
+    z-index: 1 !important;
+}
+
+/* table UI end here */
+.gogle-calender {
+    width: 22px;
+    height: auto;
+    object-fit: contain;
+    margin-left: 4px;
+}
+
+::ng-deep .dhx_cal_event.dhx_cal_event--xsmall {
+    background-color: var(--highlight-blue-bold) !important;
+    min-height: 38px !important;
+
+    .dhx_body {
+        background-color: var(--highlight-blue-bold) !important;
+        text-transform: capitalize;
+        display: flex;
+        align-items: center;
+        color: #fff;
+        flex-grow: 1;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 4px;
+        }
+    }
+
+    .dhx_title {
+        /* font-size: 14px; */
+        color: #fff;
+        background-color: var(--highlight-blue-bold) !important;
+        display: flex;
+        align-items: center;
+    }
+}
+
+::ng-deep .dhx_scheduler_dnd_marker {
+    background-color: var(--highlight-blue-bold) !important;
+}
+
+
+.dhx_cal_tab.active {
+    background-color: #007bff !important;
+    /* Highlight color */
+    color: white !important;
+    border-radius: 5px;
+}
+
+@media (max-width: 420px) {
+    ::ng-deep .fc .fc-view-harness {
+        height: 54vh !important;
+    }
+
+    ::ng-deep .fc .fc-col-header-cell-cushion,
+    ::ng-deep .fc .fc-daygrid-day-number {
+        font-size: 12px;
+    }
+}

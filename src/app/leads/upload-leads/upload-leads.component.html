@@ -1,0 +1,51 @@
+<div class="modal-header">
+  <h5 class="modal-title">Upload Excel File</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="mb-3">
+      <label class="form-label">Upload Excel (.csv, .xlsx) <span class="text-danger">*</span></label>
+      <div class="file-input-wrapper pl-0">
+        <div>
+          <input type="file" id="customFile" class="file-input" (change)="onFileSelected($event)">
+          <label for="customFile" class="file-label">Choose File</label>
+        </div>
+        <label for="customFile" class="file-name m-0">
+          <span>
+            {{ file?.fileName }}
+          </span>
+          <span *ngIf="!file?.fileName">
+            No file chosen
+          </span>
+        </label>
+      </div>
+      <small class="text-danger mt-1 d-block">Country code is mandatory in the uploaded file</small>
+    </div>
+
+    <!-- <div class="mb-3">
+      <label for="fileInput" class="form-label">Upload Excel</label>
+      <input type="file" id="fileInput" (change)="onFileSelected($event)" class="form-control upload-input" />
+    </div> -->
+
+    <div class="mb-3" *ngIf="headers.length">
+      <div *ngFor="let field of mappingFields; let i = index" class="text-nowrap row mb-3">
+        <label class="col-4 text-wrap">{{ field.label }}:</label>
+        <div class="col-8 position-relative">
+          <select name="field{{i}}" [(ngModel)]="field.selectedHeader" class="form-select">
+            <option *ngFor="let header of headers" [value]="header">
+              {{ header }}
+            </option>
+          </select>
+          <div class="chevron-dropdown"></div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn cancel-btn" (click)="close()">Close</button>
+  <button type="button" class="btn primary-btn" [disabled]="!file || !isMappingValid()" (click)="save()">Save</button>
+</div>
+
+<div class="loader" *ngIf="isLoading"></div>

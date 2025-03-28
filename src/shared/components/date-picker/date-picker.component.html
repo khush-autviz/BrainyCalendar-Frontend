@@ -1,0 +1,8 @@
+<div class="datepicker-wrapper position-relative">
+
+  <i class="fa-regular fa-calendar-days position-absolute start-0 top-0 mt-2 pt-1 ml-2 pl-1 text-lightGray"></i>
+  <input type="text" class="w-100 calendar input-calendar" matInput ngxDaterangepickerMd [showDropdowns]="true"
+    [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" startKey="start" endKey="end" [ranges]="ranges"
+    (datesUpdated)="onDateRangeChange($event)" [(ngModel)]="selectedDateRange" [showRangeLabelOnInput]="true"
+    name="daterange" placeholder="Start and End Date - All Time" readonly />
+</div>

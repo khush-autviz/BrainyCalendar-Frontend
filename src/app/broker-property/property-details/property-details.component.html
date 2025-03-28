@@ -1,0 +1,50 @@
+<div *ngIf="property">
+    <div class="card">
+      <!-- Property Images -->
+      <div class="card-body">
+        <h5 class="card-subtitle mb-2">Property Images</h5>
+        <ng-container *ngIf="property.brokerPropertyImages?.length > 0; else noImage">
+          <div class="row g-2">
+            <div class="col-md-4" *ngFor="let image of property.brokerPropertyImages">
+              <img
+                [src]="image.imgUrl"
+                alt="Property Image"
+                class="img-fluid rounded border"
+                style="height: 200px; object-fit: cover; width: 100%;"
+              />
+            </div>
+          </div>
+        </ng-container>
+  
+        <!-- Default Image -->
+        <ng-template #noImage>
+          <img
+            src="assets/img/logo.png"
+            alt="Default Image"
+            class="img-fluid rounded border"
+            style="height: 200px; object-fit: cover; width: 100%;"
+          />
+        </ng-template>
+      </div>
+
+      <div class="card-body">
+        <h5 class="card-title">{{ property.title }}</h5>
+        <p class="card-text">{{ property.description }}</p>
+        <p class="card-text">
+          <strong>Price:</strong> {{ property.price | currency }}
+        </p>
+        <p class="card-text">
+            <strong>Property Type:</strong> {{ property.propertyType }}
+          </p>
+          <p class="card-text">
+            <strong>Location City:</strong> {{ property.locationCity }}
+          </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Loading or Error Message -->
+  <div *ngIf="!property" class="text-center">
+    <p>Loading property details...</p>
+  </div>
+  

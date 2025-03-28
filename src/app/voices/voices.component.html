@@ -1,0 +1,150 @@
+<div class="py-2">
+  <div class="content-fluid" *ngIf="!isParentExist">
+    <div class="header-container">
+      <div class="row align-items-center">
+        <div class="col-3 mb-2 mb-md-0 ">
+          <h1 class="page-heading m-0 p-0">Voices</h1>
+        </div>
+
+        <div class="col-9">
+          <div class="row justify-content-end">
+            <div class="col-auto">
+              <button type="submit" (click)="onSave()" class="btn primary-btn">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-3 main-voice-component-height">
+      <div class="col-12 col-md-4 mb-3" *ngFor="let voice of voices">
+        <div class="header-container min-height">
+          <div class="mb-2 d-flex align-items-center justify-content-between">
+
+            <div class="d-flex align-items-center gap-2">
+              <div class="avatar-img-container">
+                <img [src]="voice?.description?.includes('Female') ? '/assets/img/woman.png' : '/assets/img/man.png'">
+              </div>
+              <h4 class="text-color mb-0 fs-14 text-capitalize">
+                {{voice.name}}
+              </h4>
+            </div>
+
+            <div class="d-flex align-items-center">
+              <button class="btn btn p-0 m-0 highlight-text text-nowrap" style="margin-top: -2px !important;"
+                *ngIf="!voice['sampleVoice']" type="button" (click)="handleButtonClick(voice)">
+                <i class="fa-solid fa-play"></i>
+              </button>
+
+              <div *ngIf="voice['sampleVoice']">
+                <audio [src]="voice['sampleVoice']" controls controlsList="nodownload noplaybackrate novolume"></audio>
+              </div>
+
+              <div class="mb-0 ms-2 d-flex align-items-center gap-0">
+                <div class="custom-checkbox">
+                  <input type="checkbox" [checked]="voice.id === id" class="w-fit me-1" (change)="id = voice.id"
+                    [id]="voice.id">
+                  <label class="checkbox-box" [for]="voice.id"></label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="voice-box-contaienr capitalize fs-12 text-start mb-0 text-color">
+            <div class="d-flex align-items-center">
+              <p>Description</p>
+              <span>{{voice.description}}</span>
+            </div>
+
+            <div class="d-flex align-items-center">
+              <p>Tags</p>
+              <span>{{voice.tags}}</span>
+           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isParentExist">
+    <div class="d-flex justify-content-between align-items-center">
+      <h6>Voices</h6>
+      <button type="submit" (click)="onSave()" class="btn primary-btn">
+        Submit
+      </button>
+    </div>
+
+    <div class="position-relative">
+      <div class="slider-container">
+        <div class="cards-wrapper" [style.height.px]="dynamicHeight + 418"
+          [style.transform]="'translateX(' + translateX + 'px)'">
+          <div *ngFor="let voice of voices">
+            <div class="header-container min-height">
+              <div class="mb-2 d-flex align-items-center justify-content-between">
+
+                <div class="d-flex align-items-center gap-2">
+                  <div class="avatar-img-container">
+                    <img
+                      [src]="voice?.description?.includes('Female') ? '/assets/img/woman.png' : '/assets/img/man.png'">
+                  </div>
+                  <h4 class="text-color mb-0 fs-14 text-capitalize">
+                    {{voice.name}}
+                  </h4>
+                </div>
+
+                <div class="d-flex align-items-center">
+                  <button class="btn btn p-0 m-0 highlight-text text-nowrap" *ngIf="!voice['sampleVoice']" type="button"
+                    (click)="handleButtonClick(voice)">
+                    <i class="fa-solid fa-play"></i>
+                  </button>
+
+                  <div *ngIf="voice['sampleVoice']">
+                    <audio [src]="voice['sampleVoice']" controls></audio>
+                  </div>
+                  <div class="mb-0 ms-2 d-flex align-items-center gap-0">
+                    <div class="custom-checkbox">
+                      <input type="checkbox" [checked]="voice.id === id" class="w-fit me-1" (change)="id = voice.id"
+                        [id]="voice.id">
+                      <label class="checkbox-box" [for]="voice.id"></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="voice-box-contaienr capitalize fs-12 text-start mb-0 text-color">
+
+                <div class="d-flex align-items-center">
+                  <p>Description</p>
+                  <span>{{voice.description}}</span>
+                </div>
+
+                <div class="d-flex align-items-center">
+                  <p>Tags</p>
+                  <span>{{voice.tags}}</span>
+                </div>
+
+                <div class="d-flex align-items-center">
+                  <p>Total Rating</p>
+                  <span>{{voice.total_Ratings}}</span>
+                </div>
+
+                <div class="d-flex align-items-center">
+                  <p class="">Average Rating</p>
+                  <span>{{voice.average_Rating}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <button class="nav-button prev" (click)="previous()" type="button" [disabled]="currentIndex === 0"><i
+          class="fa-solid fa-chevron-left"></i></button>
+      <button class="nav-button next" (click)="next()" type="button" [disabled]="currentIndex >= voices?.length - 4"><i
+          class="fa-solid fa-chevron-right"></i></button> -->
+    </div>
+
+  </div>
+  <div class="loader" *ngIf="isLoading"></div>

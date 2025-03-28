@@ -1,0 +1,150 @@
+<div class="content px-2 py-4">
+  <div class="container-fluid">
+    <div class="col-12 px-1">
+      <div class="header-container-secondary">
+        <div class="row">
+          <div class="col-12">
+            <h1 class="page-heading">Call Details</h1>
+            <p class="call-id">
+              Call ID: #{{ callDetails.callId }}
+            </p>
+          </div>
+        </div>
+
+        <img src="/assets/img/card-bg/call-detail.png" alt="..." class="img-bg-object">
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-md-6 mb-2">
+          <div class="call-details-container ">
+
+
+
+            <div class="header-container text-white mb-2">
+
+              <div class="request-data-item">
+                <p><strong>Status</strong></p>
+
+                <span>
+                  <div
+                    [ngClass]="{ 'completed-status': callDetails.status === 'Picked', 'not-picked-status': callDetails.status === 'NotPicked' }">
+                    {{ callDetails.status === 'Picked' ? 'Picked' : 'Not Picked' }}
+                  </div>
+                </span>
+              </div>
+              <div class="request-data-item">
+                <p><strong>From:</strong> </p> <span> {{ callDetails.from }}</span>
+              </div>
+
+              <div class="request-data-item">
+                <p><strong>To:</strong></p> <span>{{ callDetails.to }}</span>
+              </div>
+
+              <div class="request-data-item">
+                <p><strong>Duration:</strong></p> <span>{{ callDetails.callLength }}</span>
+              </div>
+
+             
+
+              <div class="request-data-item">
+                <p><strong>Summary:</strong></p> <span *ngIf="callDetails.summary">{{ callDetails.summary }}
+                  <button class="view-full-transcript btn p-0 m-0 highlight-text text-nowrap " *ngIf="callDetails.transcript?.length"
+                    (click)="openTranscriptModal(callDetails)"> View
+                    Transcript
+                  </button>
+                </span>
+                <span *ngIf="!callDetails.summary">No Summary Found</span>
+
+              </div>
+              <div class="request-data-item">
+                <p>Call Recording</p>
+                <span>
+                  <button class="btn btn p-0 m-0 highlight-text text-nowrap" *ngIf="callDetails.recording && !audio"
+                    (click)="fetchRecording(callDetails.id)">
+                    <i class="fa-solid fa-play"></i>
+                  </button>
+                  <div *ngIf="audio">
+                    <audio [src]="audio" controls></audio>
+                  </div>
+                  <div *ngIf="!callDetails.recording" class="noRecordingFoundDiv d-inline">No Recording Found</div>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 mb-2">
+          <div class="header-container">
+            <h6>Request Data</h6>
+            <div class="request-data-item">
+              <p><strong>Agent Name:</strong> </p> <span class="text-capitalize">{{userName}}</span>
+            </div>
+            <div class="request-data-item">
+              <p><strong> Customer Name:</strong></p> <span>{{ callDetails.name }}</span>
+            </div>
+            <div class="request-data-item">
+              <p><strong>Company Name:</strong> </p> <span>{{tendenyName}}</span>
+            </div>
+            <div class="request-data-item">
+              <p><strong>Request Data:</strong></p> <span>{{callDetails.categoryName}}</span>
+            </div>
+            <div class="request-data-item">
+              <p><strong> Email:</strong></p> <span>{{ callDetails.email ? callDetails.email : '-' }}</span>
+            </div>
+          </div>          
+        </div>
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn primary-btn" data-placement="top" (click)="backToList()">
+            <i class="fa-solid fa-arrow-left me-1"></i>Back
+          </button>
+        </div>        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal for Summary -->
+<div class="modal fade channelModal" id="transcriptModal" tabindex="-1" aria-labelledby="transcriptLabel"
+  aria-hidden="true">
+  <div class="modal-dialog channelModal-dialog translate-middle">
+    <div class="modal-content rounded-3 connect-modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="transcriptLabel">Summary</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body py-4" *ngIf="selectedTranscript">
+        <div class="chat-container">
+          <div class="chat-message-container">
+            <div class="chat-messages" *ngFor="let data of selectedTranscript">
+              <div class="message received" *ngIf="data.user === 'assistant'">
+                <div class="d-flex align-content-between">
+                  <p style="width: 90%;">{{ data.text }}</p>
+                  <div class="ai-img-container">
+                    <img src="/assets/img/robot-assistant.png" alt="AI Robot">
+                  </div>
+                </div>
+              </div>
+              <div class="message sent" *ngIf="data.user === 'user'">
+                <div class="d-flex gap-2 align-items-start">
+                  <div class="">
+                    <img src="../../assets/img/user.png" class="ai-img-container p-0" alt="user"
+                      style="width: 28px;height: 28px;">
+                  </div>
+                  <p>{{ data.text }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!selectedTranscript">
+        <span class="no-transcript text-white text-center fs-6 text-black fw-semibold text-capitalize">
+          No Summary Found
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loader" *ngIf="isLoading"></div>

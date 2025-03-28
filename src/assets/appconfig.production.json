@@ -1,0 +1,18 @@
+{
+  "remoteServiceBaseUrl": "https://api.brainyboss.ai",
+  "appBaseUrl": "https://app.brainyboss.ai/",
+  "localeMappings": [
+    {
+      "from": "pt-BR",
+      "to": "pt"
+    },
+    {
+      "from": "zh-CN",
+      "to": "zh"
+    },
+    {
+      "from": "he-IL",
+      "to": "he"
+    }
+  ]
+}

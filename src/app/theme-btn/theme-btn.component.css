@@ -1,0 +1,139 @@
+/* Hide the checkbox */
+.theme-toggle {
+    display: none;
+}
+
+/* Slider Container */
+.theme-toggle-slider {
+    position: relative;
+    display: inline-block;
+    width: 56px;
+    height: 28px;
+    cursor: pointer;
+}
+
+/* Slider appearance */
+.theme-toggle-slider .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #384956;
+    transition: 0.4s;
+    border-radius: 34px;
+    /*   width: 32px;
+    height: 32px; */
+}
+
+/* The circle inside the slider */
+.theme-toggle-slider .slider:before {
+    content: "";
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    background-color: transparent;
+    /* background-color: white; */
+    left: 4px;
+    bottom: 4px;
+    transition: 0.4s;
+}
+
+/* Sun and Moon icons */
+.icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: opacity 0.3s ease-in-out;
+    z-index: 99;
+
+    i {
+        font-size: 16px;
+    }
+}
+
+.sun {
+    left: 10px;
+    opacity: 1;
+}
+
+.moon {
+    right: 10px;
+    opacity: 0;
+}
+
+.text-light {
+    color: #fff;
+}
+
+.text-dark {
+    color: #2a3547 !important;
+}
+
+/* Checked State (Dark Mode) */
+.theme-toggle:checked+.theme-toggle-slider .slider {
+    background-color: #fff;
+}
+
+.theme-toggle:checked+.theme-toggle-slider .slider:before {
+    transform: translateX(26px);
+}
+
+.theme-toggle:checked+.theme-toggle-slider .moon {
+    opacity: 1;
+}
+
+.theme-toggle:checked+.theme-toggle-slider .sun {
+    opacity: 1;
+}
+
+/* Dark mode body styling */
+.theme-toggle:checked~body {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+}
+
+::ng-deep .dark-mode .header-right-menu {
+
+    .icon-container {
+        .fa-moon {
+            display: block;
+        }
+
+        .fa-sun {
+            display: none;
+        }
+    }
+
+    .darkTheme-text {
+        display: block;
+    }
+
+    .lightTheme-text {
+        display: none;
+    }
+}
+
+::ng-deep .light-mode .header-right-menu {
+
+    .icon-container {
+        .fa-moon {
+            display: none;
+        }
+
+        .fa-sun {
+            display: block;
+        }
+    }
+
+
+    .darkTheme-text {
+        display: none;
+    }
+
+    .lightTheme-text {
+        display: block;
+    }
+}

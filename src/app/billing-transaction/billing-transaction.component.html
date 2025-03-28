@@ -1,0 +1,25 @@
+<div class="px-0 py-0">
+  <div class="container-fluid px-0">
+    <div class="header-container-secondary">
+      <h1 class="page-heading">Billing Transactions</h1>
+      <img src="/assets/img/card-bg/billing-transactions.png" alt="..." class="img-bg-object">
+    </div>
+
+    <div class="table-card">
+      <div class="table-responsive">
+
+        <app-prime-table 
+          *ngIf="transactions.length > 0"
+          [data]="transactions" 
+          [columns]="columns" 
+          [paginationConfig]="paginationConfig"
+          (lazyLoad)="loadData($event)">
+        </app-prime-table>
+        <div *ngIf="transactions.length === 0" class="no-data-found">
+          No details found
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="loader" *ngIf="loading"></div>
+</div>

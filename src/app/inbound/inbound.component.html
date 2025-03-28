@@ -1,0 +1,394 @@
+<div [@routerTransition]>
+    <section class="content px-1 py-4">
+        <div class="container-fluid">
+            <!-- Tabs -->
+            <!-- <div class="card-header border-bottom-0 mb-2">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link" [class.active]="selectedTab === callingType.All"
+                                (click)="onTabChange(callingType.All)" href="javascript:void(0)">
+                                All Calls
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [class.active]="selectedTab === callingType.Inbound"
+                                (click)="onTabChange(callingType.Inbound)" href="javascript:void(0)">
+                                Inbound Calls
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [class.active]="selectedTab === callingType.Outbound"
+                                (click)="onTabChange(callingType.Outbound)" href="javascript:void(0)">
+                                Outbound Calls
+                            </a>
+                        </li>
+                    </ul>
+                </div> -->
+
+            <div class="row card-container mb-3">
+                <div class="col-12 col-md-6 col-xl-4 inbound-card pe-md-0 mb-2 mb-md-0">
+                    <div class="main-card" data-color="blue">
+                        <div class="icon-container" data-color="blue">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+
+                        <div class="custom-card-content">
+                            <h6 class="card-title">Total Calls</h6>
+                            <div class="card-value d-flex align-items-center gap-2 w-100" data-color="blue">
+                                <ng-container *ngIf="callDetails && callDetails.length > 0">
+                                    <p *ngIf="callDetails[0]?.callType === 'OutBound'">
+                                        Outbound: {{ callDetails[0]?.totalCalls | number }}
+                                    </p>
+
+                                    <p *ngIf="callDetails[0]?.callType === 'InBound'">
+                                        Inbound: {{ callDetails[0]?.totalCalls | number }}
+                                    </p>
+
+                                    <p *ngIf="callDetails[1]?.callType === 'OutBound'">
+                                        Outbound: {{ callDetails[1]?.totalCalls | number }}
+                                    </p>
+
+                                    <p *ngIf="callDetails[1]?.callType === 'InBound'">
+                                        Inbound: {{ callDetails[1]?.totalCalls | number }}
+                                    </p>
+                                </ng-container>
+                                <span class="noData text-left" *ngIf="!callDetails || callDetails.length === 0">No
+                                    data
+                                    available</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-4 inbound-card pe-md-0 mb-2 mb-md-0">
+                    <div class="main-card" data-color="green">
+
+                        <div class="icon-container" data-color="green">
+                            <i class="fas fa-clock"></i>
+                        </div>
+
+                        <div class="custom-card-content">
+                            <h6 class="card-title">Total Duration</h6>
+                            <div class="card-value d-flex align-items-center gap-2 w-100" data-color="green">
+                                <ng-container *ngIf="callDetails && callDetails.length > 0">
+                                    <span *ngIf="callDetails[0]?.callType === 'OutBound'">
+                                        Outbound: {{ callDetails[0]?.totalDuration | number:'1.2-2' }} min
+                                    </span>
+                                    <span *ngIf="callDetails[0]?.callType === 'InBound'">
+                                        Inbound: {{ callDetails[0]?.totalDuration | number:'1.2-2' }} min
+                                    </span>
+                                    <span *ngIf="callDetails[1]?.callType === 'OutBound'">
+                                        OutBound: {{ callDetails[1]?.totalDuration | number:'1.2-2' }} min
+                                    </span>
+                                    <span *ngIf="callDetails[1]?.callType === 'InBound'">
+                                        Inbound: {{ callDetails[1]?.totalDuration | number:'1.2-2' }} min
+                                    </span>
+                                </ng-container>
+                                <span class="noData text-left" *ngIf="!callDetails || callDetails.length === 0">No
+                                    data
+                                    available
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="col-12 col-md-6 col-xl-3 inbound-card pe-md-0">
+                    <div class="main-card" data-color="orange">
+                        <div class="icon-container" data-color="orange">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+
+                        <div class="custom-card-content">
+                            <h6 class="card-title">Total Cost</h6>
+                            <div class="card-value" data-color="orange">
+                                <ng-container *ngIf="callDetails && callDetails.length > 0">
+                                    <span *ngIf="callDetails[0]?.callType === 'OutBound'">
+                                        Outbound: {{ callDetails[0]?.totalCost | currency }}
+                                    </span>
+                                    <span *ngIf="callDetails[0]?.callType === 'InBound'">
+                                        InBound: {{ callDetails[0]?.totalCost | currency }}
+                                    </span>
+                                    <span *ngIf="callDetails[1]?.callType === 'OutBound'">
+                                        OutBound: {{ callDetails[1]?.totalCost | currency }}
+                                    </span>
+                                    <span *ngIf="callDetails[1]?.callType === 'InBound'">
+                                        | Inbound: {{ callDetails[1]?.totalCost | currency }}
+                                    </span>
+                                </ng-container>
+
+                                <br /><span *ngIf="!callDetails || callDetails.length === 0" class="noData">No
+                                    data
+                                    available</span>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="col-12 col-md-6 col-xl-4 inbound-card mb-2 mb-md-0">
+                    <div class="main-card" data-color="purple">
+                        <div class="icon-container" data-color="purple">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="custom-card-content">
+                            <h6 class="card-title">Success Rate</h6>
+                            <div class="card-value d-flex align-items-center gap-2 w-100" data-color="purple">
+                                <ng-container *ngIf="callDetails && callDetails.length > 0">
+                                    <span *ngIf="callDetails[0]?.callType === 'OutBound'">
+                                        Outbound: {{ (callDetails[0]?.connected / callDetails[0]?.totalCalls) * 100
+                                        |
+                                        number:'1.0-0' }}%
+                                    </span>
+                                    <span *ngIf="callDetails[0]?.callType === 'InBound'">
+                                        Inbound: {{ (callDetails[0]?.connected / callDetails[0]?.totalCalls) * 100 |
+                                        number:'1.0-0' }}%
+                                    </span>
+                                    <span *ngIf="callDetails[1]?.callType === 'OutBound'">
+                                        OutBound: {{ (callDetails[1]?.connected / callDetails[1]?.totalCalls) * 100
+                                        |
+                                        number:'1.0-0' }}%
+                                    </span>
+                                    <span *ngIf="callDetails[1]?.callType === 'InBound'">
+                                        | Inbound: {{ (callDetails[1]?.connected / callDetails[1]?.totalCalls) * 100
+                                        |
+                                        number:'1.0-0' }}%
+                                    </span>
+                                </ng-container>
+                                <span class="noData text-left" *ngIf="!callDetails || callDetails.length === 0">No
+                                    data
+                                    available</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-container-secondary position-relative">
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="page-heading">Call Logs</h1>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call History Table -->
+
+            <div class="table-card">
+                <div class="row mt-1 mb-1">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="px-3 pt-3 mt-1 mb-1">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-12 col-md-3 mb-2 pr-md-0">
+                                            <app-date-picker [(selectedDateRange)]="dateRange"
+                                                (dateRangeChange)="onDateRangeChanged($event)">
+                                            </app-date-picker>
+                                        </div>
+                                        <div class="col-12 col-md-3 mb-2 pe-md-0">
+                                            <div class="d-flex">
+                                                <input type="text" class="form-control src-input" name="keyword"
+                                                    placeholder="Search Name Or Calls" [(ngModel)]="keyword"
+                                                    (keyup.enter)="getCalls()" />
+
+                                                <!-- <div class="input-group-prepend">
+                                                    <button type="button" class="btn primary-btn magnify-btn"
+                                                        (click)="getCalls()">
+                                                        <i class="fas fa-search"></i>
+                                                    </button>
+                                                </div> -->
+                                            </div>
+                                        </div>
+
+                                        <div class="col-auto mb-2">
+                                            <button type="button" class="btn green-btn me-2" data-placement="top"
+                                                (click)="onFilterChange($event)">
+                                                Show
+                                            </button>
+                                            <button class="btn clear-btn" data-placement="top" (click)="onClear()">
+                                                Clear
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive inbound-callLog">
+                                <!-- Table is hidden instead of being removed from the DOM -->
+                                <p-table [value]="calls" [paginator]="true" [rows]="10" [lazy]="true"
+                                    [totalRecords]="totalItems" (onLazyLoad)="callingDetails($event)"
+                                    [showCurrentPageReport]="true"
+                                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                    [rowsPerPageOptions]="[10, 30, 50]" [scrollable]="true" scrollHeight="400px"
+                                    [hidden]="!calls || calls.length === 0"> <!-- Use [hidden] instead of *ngIf -->
+
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th>Name</th>
+                                            <th style="min-width: 120px;">Call Time</th>
+                                            <th>Direction</th>
+                                            <th>To</th>
+                                            <th>From</th>
+                                            <th>Status</th>
+                                            <th style="min-width: 185px;">Call Length (in min)</th>
+                                            <th style="min-width: 160px;">Recording</th>
+                                            <th style="min-width: 120px;">Transcript</th>
+                                            <th>Summary</th>
+                                            <th style="white-space: nowrap;">Call Details</th>
+                                        </tr>
+                                    </ng-template>
+
+                                    <ng-template pTemplate="body" let-call let-i="rowIndex">
+                                        <tr>
+                                            <td class="text-capitalize">{{ call.name }}</td>
+                                            <td>
+                                                <span class="date-container">
+                                                    {{ call.creationTime | date: "d MMM, y" }}<br />
+                                                    {{ call.creationTime | date: "hh:mm:ss a" }}
+                                                </span>
+                                            </td>
+                                            <td>{{ call.direction }}</td>
+                                            <td>{{ call.to }}</td>
+                                            <td>{{ call.from }}</td>
+                                            <td>
+                                                <span class="picked">
+                                                    {{ call.status === 'NotPicked' ? 'Not Picked' : call.status }}
+                                                </span>
+                                            </td>
+                                            <td>{{ call.callLength }}</td>
+                                            <td>
+                                                <button class="btn btn p-0 m-0 highlight-text text-nowrap"
+                                                    *ngIf="call.recording && !call['audio']"
+                                                    (click)="fetchRecording(call)">
+                                                    <i class="fa-solid fa-play"></i>
+                                                </button>
+                                                <div *ngIf="call['audio']">
+                                                    <audio [src]="call['audio']" controls></audio>
+                                                </div>
+                                                <div *ngIf="!call.recording" class="noRecordingFoundDiv">No Recording
+                                                    Found</div>
+                                            </td>
+                                            <td>
+                                                <button class="btn trans-btn p-0 m-0" data-bs-toggle="modal"
+                                                    *ngIf="call.transcript?.length" data-bs-target="#transcript"
+                                                    (click)="removeSpecialCharacters(call); popupContentIndex = i;">
+                                                    View Transcription
+                                                </button>
+                                                <div *ngIf="!call.transcript?.length" class="noRecordingFoundDiv"> No
+                                                    Transcript Found</div>
+                                            </td>
+                                            <td>
+                                                <button *ngIf="call.summary" class="btn table-action-btn"
+                                                    data-bs-toggle="modal" pTooltip="Summary" tooltipPosition="top"
+                                                    data-bs-target="#exampleModal" (click)="popupContentIndex = i">
+                                                    <i class="fa-regular fa-rectangle-list"></i>
+                                                </button>
+                                                <div *ngIf="!call.summary" class="noRecordingFoundDiv"> No Summary Found
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <button class="btn table-action-btn"
+                                                    (click)="viewCallDetails(call.callId)" pTooltip="View Call Details"
+                                                    tooltipPosition="top">
+                                                    <i class="fa-solid fa-headset"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+
+                                <!-- Display message when the table is empty -->
+                                <div *ngIf="!calls || calls.length === 0" class="text-center border-top border-color">
+                                    <p class="my-3">No Call history found</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Pagination -->
+                        <!-- <div class="card-footer table-card-footer">
+                    <div class="row py-0 px-0">
+                        <div class="col-12 col-md-2 mb-2">
+                            <p class="mb-0 py-2 border rounded-3 px-3 w-fit" style="font-size: 14px;">
+                                Total Records:
+                                <span>
+                                    {{ totalItems }}
+                                </span>
+                            </p>
+                        </div>
+
+                        <div class="col-md-10 col-12 d-flex justify-content-end">
+                            <abp-pagination-controls id="server"
+                                (pageChange)="callingDetails($event)"></abp-pagination-controls>
+                        </div>
+                    </div>
+                </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="modal fade channelModal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog channelModal-dialog translate-middle">
+        <div class="modal-content rounded-3 connect-modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    Summary
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body py-4">
+                {{ popupContentIndex!=null &&
+                calls[popupContentIndex].summary?calls[popupContentIndex].summary:"No Summary Found"}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade channelModal" id="transcript" tabindex="-1" aria-labelledby="transcriptLabel" aria-hidden="true">
+    <div class="modal-dialog channelModal-dialog translate-middle">
+        <div class="modal-content rounded-3 connect-modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="transcriptLabel">
+                    Transcript
+                </h1>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-4" *ngIf="popupContentIndex!=null">
+                <div *ngIf="popupContentIndex === null || calls[popupContentIndex].transcript" class="chat-container">
+                    <!-- Chat Messages -->
+                    <div class="chat-message-container">
+                        <div class="chat-messages" *ngFor="let data of calls[popupContentIndex].transcript">
+                            <div class="message received position-relative" *ngIf="data.user == 'assistant'">
+                                <div class="d-flex align-content-between">
+                                    <p style="width: 90%;" class="pe-4">{{data.text}}</p>
+                                    <div class="ai-img-container position-absolute">
+                                        <img src="/assets/img/robot-assistant.png" alt="AI Robot">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="message sent" *ngIf="data.user == 'user'">
+                                <div class="d-flex gap-2 align-items-start">
+                                    <div class="">
+                                        <img src="../../assets/img/user.png" class="ai-img-container p-0"
+                                            style="width: 28px;height: 28px;" alt="user">
+                                    </div>
+                                    <p>{{data.text}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <span *ngIf="popupContentIndex!=null && !calls[popupContentIndex].transcript"
+                class="no-transcript text-white text-center fs-6 text-black fw-semibold text-capitalize">
+                No Transcript Found
+            </span>
+        </div>
+    </div>
+</div>
+<div class="loader" *ngIf="isLoading"></div>

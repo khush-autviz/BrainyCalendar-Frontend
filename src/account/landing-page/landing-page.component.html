@@ -1,0 +1,655 @@
+<section>
+    <section class="navNhero-wrapper">
+        <div class="nav-wrapper">
+            <!-- navbar 1 -->
+            <div class="container" [ngClass]="{ 'px-0' : !openMenu}">
+                <nav class="navbar navbar-1 navbar-expand-lg navbar-light">
+                    <!-- Logo -->
+                    <a class="navbar-brand logo" target="_blank" href="https://www.autviz.com/"><img
+                            src="../../assets/img/landing-page/autviz-logo.svg" alt="Logo"></a>
+
+                    <!-- Toggle Button -->
+                    <button (click)="menuBtn()" class="navbar-toggler" type="button" aria-controls="offcanvasNavbar"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <!-- Navigation Menu -->
+                    <div class="offcanvas-menu" [ngClass]="{
+                        'offcanvas-menu-open': openMenu, 
+                        'offcanvas-menu-close': !openMenu
+                      }" id="offcanvasNavbar">
+                        <button class="close-btn text-white bg-transparent w-100 ml-auto mr-0" (click)="menuBtn()"
+                            aria-label="Close menu">&times;</button>
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link text-white" target="_blank"
+                                    href="https://www.autviz.com/services/">Services</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" target="_blank"
+                                    href="https://www.autviz.com/technologies/">Technologies</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" target="_blank"
+                                    href="https://www.autviz.com/industries/">Industries</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" target="_blank"
+                                    href="https://www.autviz.com/clients/">Clients</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" target="_blank"
+                                    href="https://www.autviz.com/company/">Company</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" target="_blank"
+                                    href="https://www.autviz.com/contact-us/">Contact
+                                    Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <!-- navbar 1 ends -->
+
+            <!-- Navbar -->
+            <div class="container">
+                <nav class="navbar navbar-expand-lg pt-3">
+                    <div class="container">
+                        <!-- Logo -->
+                        <a class="navbar-brand" href="#">
+                            <img src="../../assets/img/landing-page/realeastate-logo.svg" alt="realeastate-Logo">
+                        </a>
+
+
+                        <!-- offcanvas menu item -->
+                        <div class="d-flex gap-4 flex-row align-items-center">
+                            <!-- <div class="d-flex flex-row gap-4 justify-content-end offcanVas-menu_items">
+                                <a href="" target="_blank">Aut HR</a>
+                                <a href="" target="_blank">Real Estate</a>
+                                <a href="" target="_blank">Appointment Booking</a>
+                            </div> -->
+                            <!-- Offcanvas Menu button -->
+                            <a [routerLink]="['../register']" class="btn-base btn-dark text-dark" href="#">Get Started</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+        </div>
+
+        <!-- Banner -->
+        <div class="banner position-relative">
+            <!-- <div id="lottie-background" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div> -->
+            <div class="container position-relative">
+                <div class="banner-content position-relative">
+                    <h4 class="mb-2 subtitle">Your AI Employee</h4>
+                    <h1>Bring in More Candidates</h1>
+
+                    <div class="candidate-badge">
+                        <h1>
+                            All Automatically
+                        </h1>
+                        <a class="btn-1" href="#">
+                            <img src="../../assets/img/landing-page/candidates-img.png" alt="Candidates">
+                            <span>Candidates</span>
+                        </a>
+                    </div>
+                    <p class="banner-desciption">
+                        Small businesses struggle with limited resources, manual tasks, and reaching customers.
+                        Sysfloo.ai empowers you with an AI Employee to scale operations, attract customers, and grow
+                        revenue
+                        effortlessly.
+                    </p>
+                    <div>
+                        <a href="#" class="btn-base btn-dark" [routerLink]="['../register']">Try The Real Estate HR</a>
+                    </div>
+                </div>
+
+
+                <a href="#scroll-btn">
+                    <div class="scroll-down">
+                        <img src="../../assets/img/landing-page/Mouse.png" alt="Mouse">
+                        <span>SCROLL DOWN</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ai section -->
+    <section class="how-works" id="scroll-btn">
+        <div class="container position-relative">
+            <div class="AIempower-left"></div>
+            <div class="AIempower-right"></div>
+            <div class="section-head">
+                <h2>
+                    AI Employee <span><img src="../../assets/img/landing-page/hand-chip.png" alt="hand-icon" /></span>
+                    That Works For You
+                    <span><img src="../../assets/img/landing-page/star-chip.png" alt="star-icon" /></span> <br>Around
+                    the Clock
+                </h2>
+                <p>
+                    Our AI-powered solutions are designed to enhance your business efficiency and productivity, enabling
+                    you to focus on what truly matters.
+                </p>
+            </div>
+
+            <div class="row text-center gy-3">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <img src="../../assets/img/landing-page/Workflow Automation 2.png" alt="Notfound">
+                        <h5>
+                            Workflow Automation
+                        </h5>
+                        <p>
+                            Streamline tasks and save time.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <img src="../../assets/img/landing-page/Operational Insights 2.png" alt="Notfound">
+                        <h5>
+                            Operational Insights
+                        </h5>
+                        <p>
+                            Real-time dashboards to track performance and identify growth opportunities
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <img src="../../assets/img/landing-page/Customer Engagement 2.png" alt="Notfound">
+                        <h5>
+                            Customer Engagement
+                        </h5>
+                        <p>
+                            Build better relationships with CRM and AI marketing tools
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ai section -->
+
+    <!-- how it works section -->
+    <section class="spacing">
+        <div class="container">
+            <div class="section-head">
+                <h2>
+                    How It Works
+                </h2>
+                <p>
+                    Our AI-powered solutions are designed to enhance your business efficiency and productivity, enabling
+                    you to focus on what truly matters.
+                </p>
+            </div>
+            <div class="row gy-3 text-center">
+                <div class="col-md-6">
+                    <div class="main-step step-colored">
+                        <div>
+                            <img src="../../assets/img/landing-page/01.png" alt="Notfound">
+                        </div>
+                        <div class="text-white step-content">
+                            <h5>
+                                Lorem Ipsum
+                            </h5>
+                            <p class="text-white">
+                                It is a long established fact that a reader will be distracted by the readable content
+                                of a page when looking at its layout.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="main-step steps">
+                        <div class="order-mob">
+                            <img src="../../assets/img/landing-page/02.png" alt="Notfound">
+                        </div>
+                        <div class="text step-content">
+                            <h5>
+                                Lorem Ipsum
+                            </h5>
+                            <p>
+                                It is a long established fact that a reader will be distracted by the readable content
+                                of a page when looking at its layout.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="main-step steps">
+                        <div class="order-mob2 step-content">
+                            <h5>
+                                Lorem Ipsum
+                            </h5>
+                            <p>
+                                It is a long established fact that a reader will be distracted by the readable content
+                                of a page when looking at its layout.
+                            </p>
+                        </div>
+                        <div>
+                            <img src="../../assets/img/landing-page/03.png" alt="Notfound">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="main-step step-colored">
+                        <div class="text-white step-content">
+                            <h5>
+                                Lorem Ipsum
+                            </h5>
+                            <p class="text-white">
+                                It is a long established fact that a reader will be distracted by the readable content
+                                of a page when looking at its layout.
+                            </p>
+                        </div>
+                        <div>
+                            <img src="../../assets/img/landing-page/04.png" alt="Notfound">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- how it works section -->
+
+    <!-- ai hr section -->
+    <section class="spacing">
+        <div class="container">
+            <div class="ai-hr-bg position-relative">
+                <div class="section-head">
+                    <h2>
+                        Why Companies Choose AI HR
+                    </h2>
+                    <p>
+                        Our AI-powered solutions are designed to enhance your business efficiency and productivity,
+                        enabling you to focus on what truly matters.
+                    </p>
+                </div>
+                <div class="ai-grids">
+                    <div class="client">
+                        <img src="../../assets/img/landing-page/struggling-client.png" alt="Notfound">
+                        <h6>
+                            Struggling to Find Customers?
+                        </h6>
+                        <p>
+                            Sysfloo's AI Employee delivers targeted marketing campaigns that attract more customers
+                            effortlessly.
+                        </p>
+                    </div>
+
+                    <div class="client">
+                        <img src="../../assets/img/landing-page/track-img.png" alt="Notfound">
+                        <h6>
+                            Manual Tasks Taking Over?
+                        </h6>
+                        <p>
+                            Automate workflows like scheduling, invoicing, and customer engagement, saving hours every
+                            week.
+                        </p>
+                    </div>
+                </div>
+                <div class="bot-bg">
+                    <img src="../../assets/img/landing-page/ai-bot.png" alt="bot" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ai hr section -->
+
+    <!-- feature section -->
+    <section class="spacing">
+        <div class="container">
+            <div class="section-head">
+                <h2>
+                    Features
+                </h2>
+                <p>
+                    Our AI-powered solutions are designed to enhance your business efficiency and productivity, enabling
+                    you to focus on what truly matters.
+                </p>
+            </div>
+            <div class="row text-center gy-3">
+                <div class="col-md-4">
+                    <div class="info-card">
+                        <div class="info-image">
+                            <img src="../../assets/img/landing-page/AI Recruitment Tools 2.png"
+                                alt="AI Recruitment Tools">
+                        </div>
+                        <div class="info-content">
+                            <h5 class="info-title">AI Recruitment Tools</h5>
+                            <ul class="info-list">
+                                <li><img src="../../assets/img/landing-page/check-icon.png" alt="check-icon" /> Resume
+                                    screening</li>
+                                <li><img src="../../assets/img/landing-page/check-icon.png" alt="check-icon" />
+                                    Candidate ranking</li>
+                                <li><img src="../../assets/img/landing-page/check-icon.png" alt="check-icon" />
+                                    Interview scheduling</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-card">
+                        <div class="info-image">
+                            <img src="../../assets/img/landing-page/Employee Management 2.png"
+                                alt="Employee Management">
+                        </div>
+                        <div class="info-content">
+                            <h5 class="info-title">Employee Management</h5>
+                            <ul class="info-list">
+                                <li><img src="../../assets/img/landing-page/check-icon.png" alt="check-icon" />
+                                    Performance analytics</li>
+                                <li><img src="../../assets/img/landing-page/check-icon.png" alt="check-icon" /> Feedback
+                                    systems</li>
+                                <li><img src="../../assets/img/landing-page/check-icon.png" alt="check-icon" />
+                                    Workforce planning</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="info-card">
+                        <div class="info-image">
+                            <img src="../../assets/img/landing-page/HR Automation 2.png" alt="HR Automation">
+                        </div>
+                        <div class="info-content">
+                            <h5 class="info-title">HR Automation</h5>
+                            <ul class="info-list">
+                                <li><img src="../../assets/img/landing-page/check-icon.png" alt="check-icon" /> Payroll
+                                    processing</li>
+                                <li><img src="../../assets/img/landing-page/check-icon.png" alt="check-icon" />
+                                    Compliance tracking</li>
+                                <li><img src="../../assets/img/landing-page/check-icon.png" alt="check-icon" /> Leave
+                                    management</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- feature section -->
+
+    <!-- video section -->
+    <section class="spacing">
+        <div class="container">
+            <div class="section-head">
+                <h2>
+                    Future of HR Starts Here
+                </h2>
+                <p>
+                    Our AI-powered solutions are designed to enhance your business efficiency and productivity, enabling
+                    you to focus on what truly matters.
+                </p>
+                <div>
+                    <a href="#" class="btn-base btn-dark">Learn More</a>
+                </div>
+            </div>
+
+            <div class="image-container">
+                <img src="../../assets/img/landing-page/video.png" alt="Image" class="image">
+                <button class="play-btn" onclick="openVideo()"><img
+                        src="../../assets/img/landing-page/play-btn.png"></button>
+            </div>
+
+            <!-- Video Popup -->
+            <div id="videoPopup" class="video-popup">
+                <span class="close-btn" onclick="closeVideo()">X</span>
+                <video id="popupVideo" class="fullscreen-video" controls>
+                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                </video>
+            </div>
+
+
+        </div>
+    </section>
+    <!-- video section -->
+
+    <!-- pricing section -->
+    <section class="pricing spacing bg-white">
+        <div class="container">
+            <div class="section-head">
+                <h2>
+                    Pick Your Perfect Plan
+                </h2>
+                <p>
+                    Our AI-powered solutions are designed to enhance your business efficiency and productivity, enabling
+                    you to focus on what truly matters.
+                </p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Pricing Card 1 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="pricing-card">
+                        <div class="pricing-plan">Starter Plan</div>
+                        <h2 class="pricing-price">$20.00/m</h2>
+                        <ul class="pricing-details">
+                            <li><img src="../../assets/img/landing-page/check-icon.png" alt="check-icon" /> Lorem Ipsum
+                                is simply dummy text of
+                                the printing and typesetting industry.</li>
+                            <li><img src="../../assets/img/landing-page/check-icon.png" alt="check-icon" /> Lorem Ipsum
+                                is simply dummy text
+                            </li>
+                            <li><img src="../../assets/img/landing-page/check-icon.png" alt="check-icon" /> Lorem Ipsum
+                                is simply dummy text of
+                                the printing and typesetting industry.</li>
+                            <li><img src="../../assets/img/landing-page/check-icon.png" alt="check-icon" /> Lorem Ipsum
+                                is simply dummy text
+                            </li>
+                        </ul>
+                        <a class="btn-base btn-dark subscribe-btn" href="#">Subscribe Now</a>
+                    </div>
+                </div>
+                <!-- Pricing Card 2 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="pricing-card">
+                        <div class="pricing-plan">Starter Plan</div>
+                        <h2 class="pricing-price">$20.00/m</h2>
+                        <ul class="pricing-details">
+                            <li><img src="../../assets/img/landing-page/check-icon.png" alt="check-icon" /> Lorem Ipsum
+                                is simply dummy text of
+                                the printing and typesetting industry.</li>
+                            <li><img src="../../assets/img/landing-page/check-icon.png" alt="check-icon" /> Lorem Ipsum
+                                is simply dummy text
+                            </li>
+                            <li><img src="../../assets/img/landing-page/check-icon.png" alt="check-icon" /> Lorem Ipsum
+                                is simply dummy text of
+                                the printing and typesetting industry.</li>
+                            <li><img src="../../assets/img/landing-page/check-icon.png" alt="check-icon" /> Lorem Ipsum
+                                is simply dummy text
+                            </li>
+                        </ul>
+                        <a class="btn-base btn-dark subscribe-btn" href="#">Subscribe Now</a>
+                    </div>
+                </div>
+                <!-- Pricing Card 3 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="pricing-card">
+                        <div class="pricing-plan">Starter Plan</div>
+                        <h2 class="pricing-price">$20.00/m</h2>
+                        <ul class="pricing-details">
+                            <li><img src="../../assets/img/landing-page/check-icon.png" alt="check-icon" /> Lorem Ipsum
+                                is simply dummy text of
+                                the printing and typesetting industry.</li>
+                            <li><img src="../../assets/img/landing-page/check-icon.png" alt="check-icon" /> Lorem Ipsum
+                                is simply dummy text
+                            </li>
+                            <li><img src="../../assets/img/landing-page/check-icon.png" alt="check-icon" /> Lorem Ipsum
+                                is simply dummy text of
+                                the printing and typesetting industry.</li>
+                            <li><img src="../../assets/img/landing-page/check-icon.png" alt="check-icon" /> Lorem Ipsum
+                                is simply dummy text
+                            </li>
+                        </ul>
+                        <a class="btn-base btn-dark subscribe-btn" href="#">Subscribe Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- pricing section -->
+
+    <!-- accordion section -->
+    <section class="faq-wrapper spacing bg-white">
+        <div class="container">
+            <div class="section-head">
+                <h2>
+                    Frequently Asked Question
+                </h2>
+                <p>
+                    Our AI-powered solutions are designed to enhance your business efficiency and productivity, enabling
+                    you to focus on what truly matters.
+                </p>
+            </div>
+
+            <div class="accordion pt-3" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            What type of services do you provide?
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            We are a trusted offshore development company that offers expert IT Staff Augmentation and
+                            IT Resourcing Services. We specialize in staffing, managing, and supporting offshore
+                            development teams tailored to our client's needs. Our services encompass:
+                            Recruitment of Certified and Skilled Developers
+                            Management of Client's Team
+                            Provision of Cutting-Edge Hardware and Software Infrastructure
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            How do I interview resources before hiring them?
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            This is the second item's accordion body. It is hidden by default, until the collapse plugin
+                            adds the appropriate classes that we use to style each element. These classes control the
+                            overall appearance, as well as the showing and hiding via CSS transitions. You can modify
+                            any of this with custom CSS or overriding our default variables. It's also worth noting that
+                            just about any HTML can go within the <code>.accordion-body</code>, though the transition
+                            does limit overflow.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Why Choose Us?
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            This is the third item's accordion body. It is hidden by default, until the collapse plugin
+                            adds the appropriate classes that we use to style each element. These classes control the
+                            overall appearance, as well as the showing and hiding via CSS transitions. You can modify
+                            any of this with custom CSS or overriding our default variables. It's also worth noting that
+                            just about any HTML can go within the <code>.accordion-body</code>, though the transition
+                            does limit overflow.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            Whom can I connect for further discussion?
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            This is the third item's accordion body. It is hidden by default, until the collapse plugin
+                            adds the appropriate classes that we use to style each element. These classes control the
+                            overall appearance, as well as the showing and hiding via CSS transitions. You can modify
+                            any of this with custom CSS or overriding our default variables. It's also worth noting that
+                            just about any HTML can go within the <code>.accordion-body</code>, though the transition
+                            does limit overflow.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            What type of services do you provide?
+                        </button>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            This is the third item's accordion body. It is hidden by default, until the collapse plugin
+                            adds the appropriate classes that we use to style each element. These classes control the
+                            overall appearance, as well as the showing and hiding via CSS transitions. You can modify
+                            any of this with custom CSS or overriding our default variables. It's also worth noting that
+                            just about any HTML can go within the <code>.accordion-body</code>, though the transition
+                            does limit overflow.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- accordion section -->
+
+    <!-- newsletter section -->
+    <section class="spacing bg-white">
+        <div class="container">
+            <div class="newsletter bg-style" style="background: url(../../assets/img/landing-page/newsletter.png);">
+                <div class="news-content">
+                    <h2>Lorem ipsum dolor sit amet, consectetur adipiscing</h2>
+                    <p>At veroeos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                        deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+                    <div class="mt-4">
+                        <a href="#" class="btn-base btn-dark">Schedule a Demo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- newsletter section ends -->
+
+
+    <!-- footer -->
+    <footer>
+        <div class="container">
+            <div class="logo-footer-menu">
+                <div>
+                    <img src="../../assets/img/landing-page/realeastate-logo.svg" alt="Hr-logo" />
+                </div>
+                <div class="privacy-menu">
+                    <ul>
+                        <li>
+                            <a href="">Terms & Conditions</a>
+                        </li>
+                        <li>
+                            <a href="">Privacy Policy</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="copyright">
+                    <p>© 2024 AI Real Estate. All rights reserved. </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer -->
+</section>

@@ -1,0 +1,170 @@
+<section class="content px-1 py-4">
+  <div class="container-fluid">
+    <div class="col-12 px-0">
+      <app-lead-analysis></app-lead-analysis>
+    </div>
+
+    <div class="mt-3">
+      <div class="header-container">
+        <div class="row align-items-center">
+          <div class="col-12 col-md-2">
+            <h1 class="page-heading pb-sm-1 pb-3">Leads</h1>
+          </div>
+
+          <div class=" col-10 heading-btn-s">
+            <div class="row justify-content-sm-end justify-content-center">
+              <div class="col-auto heading-btn d-flex flex-wrap gap-2">
+                <app-facebook-integration *ngIf="!isRetellCallProvided"></app-facebook-integration>
+                <button class="btn primary-btn" (click)="bulkCall()" [disabled]="!checkList.length">Bulk
+                  Call</button>
+                <button class="btn primary-btn" pTooltip="Upload Lead" tooltipPosition="top" (click)="addLead()">
+                  <!-- <i class="fa-solid fa-upload me-1"></i> -->
+                  Upload</button>
+                <button class="btn primary-btn" pTooltip="Export Lead" tooltipPosition="top" (click)="exportExcel()">
+                  <!-- <i class="fa-solid fa-file-export me-1"></i> -->
+                  Export</button>
+                <button class="btn primary-btn" pTooltip="Add Lead" tooltipPosition="top" (click)="addLeadPopup()">
+                  <i class="fa-solid fa-user-plus me-1"></i>
+                  Add
+                </button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table-card">
+      <div class="px-3 pt-3 mt-1 mb-1">
+        <div class="row">
+          <div class="col-12 col-md-2 mb-2 pr-md-0" *ngIf="!isRetellCallProvided">
+            <ng-select name="source" class="ngSelect" placeholder="Select Source" [(ngModel)]="selectedLeadSource">
+              <ng-option [value]="LeadSource.Manual">Manual</ng-option>
+              <ng-option [value]="LeadSource.Meta">Meta</ng-option>
+              <ng-option [value]="LeadSource.Google">Google</ng-option>
+              <ng-option [value]="LeadSource.Hubspot">Hubspot</ng-option>
+            </ng-select>
+          </div>
+
+          <div class="col-12 col-md-2 mb-2 pr-md-0">
+            <ng-select name="status" placeholder="Select Status" [(ngModel)]="selectedLeadStatus">
+              <ng-option [value]="LeadStatus.New">New</ng-option>
+              <ng-option [value]="LeadStatus.NotQualified">Not Qualified</ng-option>
+              <ng-option [value]="LeadStatus.Qualified">Qualified</ng-option>
+            </ng-select>
+          </div>
+
+          <div class="col-12 col-md-auto mb-2 pr-md-0">
+            <app-date-picker [(selectedDateRange)]="dateRange" (dateRangeChange)="onDateRangeChanged($event)">
+            </app-date-picker>
+          </div>
+
+          <div class="col-12 col-md-2 mb-2 pr-md-0">
+            <div class="d-flex">
+              <input type="text" class="form-control magnify-input " name="keyword" placeholder="Search"
+                [(ngModel)]="keyword" (keyup.enter)="getAll()" />
+            </div>
+          </div>
+
+          <div class="col-auto mb-2 d-flex gap-2">
+            <button type="button" class="btn green-btn" data-placement="top" (click)="onFilterChange()">
+              Show
+            </button>
+
+            <button class="btn clear-btn" data-placement="top" (click)="onClear()">
+              Clear
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- PrimeNG Table for Leads -->
+
+      <div class="table-responsive lead-pagination">
+        <p-table [value]="Leads" [scrollable]="true" scrollHeight="400px" [paginator]="true" [rows]="10" [lazy]="true"
+          [totalRecords]="totalRecords" (onLazyLoad)="leadsDetails($event)" [showCurrentPageReport]="true"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+          (onPage)="leadsDetails($event)" [rowsPerPageOptions]="[10, 30, 50]" [showCurrentPageReport]="true">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>
+                <div class="custom-checkbox">
+                  <input type="checkbox" id="checkbox1" [checked]="Leads.length > 0 && Leads.length==checkList.length"
+                    (change)="checkUnCheckAll()" />
+                  <label for="checkbox1" class="checkbox-box"></label>
+                </div>
+                <!-- <input type="checkbox" class="checkbox mr-1 h-auto" style="cursor:pointer;"
+                    [checked]="Leads.length > 0 && Leads.length==checkList.length" (change)="checkUnCheckAll()"> -->
+              </th>
+              <th>Name </th>
+              <th>Email </th>
+              <th>Phone </th>
+              <th style="min-width: 160px;">Lead Status</th>
+              <th>Source </th>
+              <th colspan="3" style="min-width: 120px;">Last Call At </th>
+              <th colspan="3" style="min-width: 120px;">Creation Date </th>
+              <th>Action</th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-lead>
+            <tr>
+              <td>
+                <div class="custom-checkbox">
+                  <input type="checkbox" id={{lead.id}} value="{{lead.id}}" name="list_name"
+                    [checked]="checkList.includes(lead.id)" (click)="checkID(lead.id)">
+                  <label for={{lead.id}} class="checkbox-box"></label>
+                </div>
+                <!-- <input type="checkbox" class="checkbox" value="{{lead.id}}" name="list_name"
+                    [checked]="checkList.includes(lead.id)" (click)="checkID(lead.id)" /></td> -->
+              <td>{{lead.customerName}}</td>
+              <td>{{lead.customerEmail? lead.customerEmail : "-"}}</td>
+              <td>{{lead.customerPhoneNumber}}</td>
+              <td>
+                <span [ngClass]="{
+                  'new-status': lead.leadStatusName === 'New',
+                  'nonqualified-status': lead.leadStatusName === 'NotQualified',
+                  'qualified-status': lead.leadStatusName === 'Qualified'
+                }">
+                  {{ lead.leadStatusName === 'NotQualified' ? 'Not Qualified' : lead.leadStatusName }}
+                </span>
+              </td>
+              <td>{{lead.sourceName}}</td>
+              <td colspan="3"><span style="width:170px" class="d-inline-block">{{ getModifiedDate(lead.lastCallAt)
+                  }}</span></td>
+              <td colspan="3"><span style="width:170px" class="d-inline-block">{{ getModifiedDate(lead.creationTime)
+                  }}</span></td>
+              <td>
+                <div class="d-flex">
+                  <!-- call log -->
+                  <button class="btn table-action-btn" (click)="viewCallLogs(lead.id)" pTooltip="Call Log"
+                    tooltipPosition="top">
+                    <!-- <i class="tb-viewcallLog"></i> -->
+                    <i class="fa-solid fa-book"></i>
+                  </button>
+
+                  <!-- view Meeting -->
+                  <!-- <button class="btn table-action-btn" (click)="viewMeetings(lead.id)" pTooltip="View Meeting"
+                    tooltipPosition="top"><i class="fa-solid fa-video"></i> </button> -->
+
+                  <!-- View btn -->
+                  <button class="btn table-action-btn" pTooltip="Lead Detail" tooltipPosition="top"
+                    (click)="viewLeadDetails(lead.id, lead.customerPhoneNumber)">
+                    <i class="fa-solid fa-eye"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="12" class="text-left text-capitalize">No Leads History Found</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+
+</section>
+<div class="loader" *ngIf="isLoading"></div>

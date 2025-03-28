@@ -1,0 +1,56 @@
+input {
+    border-radius: .4rem !important;
+    /* border-right: 0 !important; */
+    padding-left: 12px;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--textColor);
+
+}
+
+select {
+    border-radius: .4rem !important;
+    background: var(--main-bg);
+    color: var(--textColor);
+    border: 1px solid var(--border-color);
+
+    &:focus,
+    &:active,
+    &:hover {
+        outline: none;
+        box-shadow: none;
+    }
+}
+
+option {
+    background: var(--card-bg) !important;
+    color: var(--textColor);
+    font-size: 14px;
+
+    &:hover {
+        background-color: var(--highlight-blue);
+    }
+}
+
+.grid-container-input-label {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+}
+
+.chevron-dropdown {
+    position: absolute;
+    top: 11px;
+    right: 20px;
+    background: var(--chevronDropdown);
+    height: 18px !important;
+    width: 18px !important;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.file-input-wrapper {
+    flex-direction: row !important;
+    align-items: center !important;
+}

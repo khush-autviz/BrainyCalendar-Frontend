@@ -1,0 +1,60 @@
+<div class="nav-item dropdown nav-user-menu d-flex align-items-center gap-4" dropdown>
+  <a href="javascript:;" class="header-user-img d-flex align-items-center gap-2" dropdownToggle>
+
+    <img *ngIf="profilePicture; else defaultImage" class="user-image img-circle" [src]="profilePicture"
+      alt="User Image" />
+    <ng-template #defaultImage>
+      <img class="user-image img-circle" src="assets/img/user.png" alt="User Image" />
+    </ng-template>
+  </a>
+
+  <div class="dropdown-menu dropdown-menu-right py-0 text-white header-container p-0" *dropdownMenu>
+    <div>
+      <div class="imgNname px-3 py-2 d-flex align-items-center gap-1 dark-border-b">
+        <img *ngIf="profilePicture; else defaultImage" class="user-image img-circle" [src]="profilePicture"
+          alt="User Image" />
+        <ng-template #defaultImage>
+          <img class="user-image img-circle" src="assets/img/user.png" alt="User Image" />
+        </ng-template>
+
+        <div>
+          <p class="ml-2 mb-0 fs-6 text-color fw-medium word-break">
+            {{this.session.user.name}}
+          </p>
+          <p class="mb-0 fs-12 text-color ml-2">
+            <i class="fa-solid fa-envelope me-1"></i>{{this.session.user.emailAddress}}
+          </p>
+        </div>
+      </div>
+
+      <div class="my-2">
+        <div class="px-3 py-2">
+          <a class="header-right-menu">
+            <div class="icon-container">
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <p (click)="userProfile(this.session.user.id)">My Profile</p>
+          </a>
+        </div>
+
+        <div class="px-3 py-2">
+          <div class="header-right-menu">
+            <div class="icon-container">
+              <i class="fa-solid fa-lock"></i>
+            </div>
+            <p (click)="updatePassword(this.session.user.emailAddress)">Update Password</p>
+          </div>
+        </div>
+
+        <div class="px-3  py-2 d-block d-md-none">
+          <app-theme-btn></app-theme-btn>
+        </div>
+      </div>
+      <div class="px-3 mb-3">
+        <a class="btn w-100 logout-dropdown" href="javascript:;" (click)="logout()">
+          <i class="fas fa-sign-out-alt me-1"></i> <span>{{ "Logout" | localize }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

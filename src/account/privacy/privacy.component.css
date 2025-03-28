@@ -1,0 +1,6 @@
+.legal-page{
+    color: var(--textColor);
+    h1,p{
+        color: var(--textColor);
+    }
+}

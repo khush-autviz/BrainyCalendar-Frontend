@@ -1,0 +1,62 @@
+.facebook-btn {
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    /* background: #1877F2; */
+    border: 1px solid var(--highlight-blue);
+    width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    color: var(--highlight-blue);
+    padding: 9px 12px !important;
+    min-height: 41px;
+    overflow: hidden;
+
+
+    &::after {
+        transition: all 0.3s ease-in-out;
+        /* transition-delay: 3ms; */
+        content: 'Leads with Facebook';
+        font-family: "Plus Jakarta Sans", serif;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--highlight-blue);
+        display: inline;
+        opacity: 0;
+        visibility: hidden;
+        white-space: nowrap;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    &:hover::after {
+        /* position: relative; */
+        opacity: 1;
+        visibility: visible;
+    }
+
+    &:hover {
+        width: 167.36px;
+    }
+}
+
+.facebook-btn:hover {
+    .fa-facebook-f {
+        display: none;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .facebook-btn {
+        width: 187.36px;
+    }
+
+    .facebook-btn::after {
+        opacity: 1;
+        visibility: visible;
+        left: 54%;
+    }
+}

@@ -1,0 +1,34 @@
+<div class="d-none d-md-flex px-2 pt-2 justify-content-md-center align-items-center">
+    <input type="checkbox" id="theme-toggle" class="theme-toggle" [checked]="currentMode === Mode.DARK"
+        (change)="toggleMode()">
+    <label for="theme-toggle" class="theme-toggle-slider">
+        <span class="icon sun">
+            <i class="fa-solid fa-sun text-light"></i>
+        </span>
+
+        <span class="icon moon">
+            <i class="fa-solid fa-moon text-dark"></i>
+        </span>
+        <span class="slider"></span>
+    </label>
+</div>
+
+
+<div class="d-md-none d-block">
+    <input type="checkbox" id="theme-toggle" style="display: none;" [checked]="currentMode === Mode.DARK"
+        (change)="toggleMode()">
+
+    <label for="theme-toggle" class="theme-toggle-slider w-100">
+        <div class="">
+            <div class="header-right-menu">
+                <div class="icon-container">
+                    <i class="fa-solid fa-moon "></i>
+                    <i class="fa-solid fa-sun "></i>
+                </div>
+
+                <p class="darkTheme-text">Dark Mode</p>
+                <p class="lightTheme-text">Light Mode</p>
+            </div>
+        </div>
+    </label>
+</div>

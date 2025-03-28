@@ -1,0 +1,68 @@
+<!-- AddLeadComponent HTML -->
+<div class="modal-header">
+  <h5 class="modal-title">Add a New Lead</h5>
+  <button type="button" aria-label="Close" class="btn-close" (click)="close()"></button>
+</div>
+<form (ngSubmit)="saveLead()" #leadForm="ngForm" class="pt-1 mt-1 px-0 pb-0">
+  <!-- Name Field -->
+  <div class="form-group px-4">
+    <label class="form-label" for="name">Name <sup>*</sup></label>
+    <input id="name" type="text" [(ngModel)]="lead.customerName" name="name" class="file-input-wrapper min-h-42"
+      required pattern="^(?! )[a-zA-Z0-9 ]*(?<! )$" #name="ngModel" />
+    <!-- Display validation error for Name -->
+    <small *ngIf="name.invalid && name.touched" class="text-danger">
+      Name is required
+    </small>
+  </div>
+
+  <!-- Phone Field -->
+  <div class="form-group px-4 mb-0">
+    <label for="phone">Phone Number<sup>*</sup></label>
+    <div class="row">
+      <div class="col-5 mb-3">
+        <ng-select class="form-control country-code" [(ngModel)]="selectedCountryCode" name="countryCode"
+          id="countryCode" [placeholder]="selectedCountryCode ? selectedCountryCode : 'Select Country Code'"
+          [searchable]="true" [clearable]="false">
+          <ng-option *ngFor="let code of countryCodes" [value]="code.phoneCode">
+            {{ code.countryName }} ({{ code.phoneCode }})
+          </ng-option>
+        </ng-select>
+      </div>
+
+      <div class="col-7 mb-3">
+        <input type="text" id="phone" name="phone" class="form-control custom-input" placeholder="Enter phone number"
+          [(ngModel)]="customerNumber" #phone="ngModel" required pattern="^[0-9]*$"
+          (keypress)="validateNumberInput($event)" />
+
+        <div *ngIf="phone.invalid && phone.touched" class="text-danger">
+          <small *ngIf="phone.errors?.required">Phone number is required</small>
+          <small *ngIf="phone.errors?.pattern">Only digits are allowed (no
+            special characters)</small>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Email Field -->
+  <div class="form-group px-4">
+    <label class="form-label" for="email">Email<sup>*</sup></label>
+    <input id="email" type="email" [(ngModel)]="lead.customerEmail" name="email" class="file-input-wrapper min-h-42"
+      required maxlength="256" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,})+$" #email="ngModel" />
+    <!-- Display validation error for Email -->
+    <small *ngIf="email.invalid && email.touched" class="text-danger">
+      Valid email address is required
+    </small>
+  </div>
+
+  <!-- Save and Cancel Buttons -->
+  <div class=" modal-footer">
+    <button type="button" class="btn cancel-btn" (click)="cancel()">Cancel</button>
+    <button type="submit" class="btn primary-btn" [disabled]="leadForm.invalid">
+      Save
+    </button>
+  </div>
+</form>
+<div *ngIf="isLoading" class="loader-container">
+  <div class="loading-circle"></div>
+</div>

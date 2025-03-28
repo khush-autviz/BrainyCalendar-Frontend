@@ -1,0 +1,195 @@
+<section class="content py-2">
+    <div class="container-fluid px-0">
+        <div class="header-container">
+            <div class="row align-items-center">
+                <div class="col-4 mb-2 mb-md-0 text-nowrap">
+                    <h1 class="page-heading m-0 p-0">Call Configuration</h1>
+                </div>
+
+                <div class="col-8">
+                    <div class="row justify-content-end">
+                        <div class="col-auto">
+                            <button class="btn primary-btn" [disabled]="isSaveDisabled" (click)="saveChanges()">Save
+                                Changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 px-0 pt-1">
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div class="call-custom-card">
+                                <h6>Initial Call Settings</h6>
+                                <div class="row mt-2">
+                                    <div class="col-md-6 col-12 mb-2" *ngIf="!isRetell">
+                                        <label for="firstCallTiming">First Call Timing</label>
+                                        <div class="call-select-input">
+                                            <div class="call-select-input">
+                                                <input type="number" class="form-control"
+                                                    [(ngModel)]="this.callConfigData.firstCallTiming.value"
+                                                    placeholder="Enter value">
+
+                                                <select id="firstCallTiming" class="form-control"
+                                                    [(ngModel)]="this.callConfigData.firstCallTiming.timeType ">
+                                                    <option [value]="TimeTypeEnumState.Sec">Second</option>
+                                                    <option [value]="TimeTypeEnumState.Min">Minutes</option>
+                                                    <option [value]="TimeTypeEnumState.Hour">Hours</option>
+                                                    <option [value]="TimeTypeEnumState.Day">Days</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-12 mb-2">
+                                        <label for="maximumCallAttempts">Maximum Call Attempts</label>
+                                        <input type="number" id="maximumCallAttempts" class="form-control custom-input"
+                                            min="1" max="5" [(ngModel)]="callConfigData.maximumCallAttempts"
+                                            (input)="generateRetryConfigs()" (change)="onMaximumCallAttemptsChange()">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mb-3 d-block d-md-none">
+                            <div class="call-custom-card">
+                                <h6>Auto call scheduler</h6>
+                                <div class="row">
+                                    <div class="col-12 mb-3 col-md-6"
+                                        *ngFor="let retry of callConfigData.retryTime; let i = index">
+                                        <label for="retryTime{{ i }}">Retry #{{ i + 1 }}</label>
+                                        <div class="call-select-input">
+                                            <input type="number" class="form-control" [(ngModel)]="retry.value"
+                                                placeholder="Enter value">
+
+                                            <select id="retryTime{{ i }}" class="form-control"
+                                                [(ngModel)]="retry.timeType">
+                                                <option [value]="TimeTypeEnumState.Min">Minutes</option>
+                                                <option [value]="TimeTypeEnumState.Hour">Hours</option>
+                                                <option [value]="TimeTypeEnumState.Day">Days</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12">
+                            <div class="call-custom-card">
+                                <h6 class="d-flex align-items-center m-0 gap-1"> Alternative Communications <span
+                                        class="upcoming-badge">Upcoming</span>
+                                </h6>
+
+                                <div class="row mt-3">
+
+                                    <div class="col-12 mb-3">
+                                        <div class="fancy">
+                                            <div class="content-container py-0 px-3 d-flex align-items-center">
+                                                <!-- <input type="checkbox" class="form-check-input" id="sendWhatsapp"
+                                                [(ngModel)]="callConfigData.sendWhatsapp"> -->
+                                                <label class="text m-0  text-wrap" for="sendWhatsapp">
+                                                    <img src="/assets/img/whatsapp.png" alt="...">
+                                                    Send WhatsApp
+                                                    if call not answered</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 mb-2">
+                                        <div class="fancy">
+                                            <div class="content-container py-0 px-3 d-flex align-items-center">
+                                                <!-- <input type="checkbox" class="form-check-input" id="sendFollowUpEmail"
+    [(ngModel)]="callConfigData.sendFollowUpEmail"> -->
+                                                <img src="/assets/img/email.png" alt="...">
+                                                <label class="form-check-label" for="sendFollowUpEmail">Send
+                                                    follow-up email</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 mb-3 d-none d-md-block">
+                    <div class="call-custom-card">
+                        <h6>Auto call scheduler</h6>
+                        <div class="row">
+                            <div class="col-12 mb-3 col-md-6"
+                                *ngFor="let retry of callConfigData.retryTime; let i = index">
+                                <label for="retryTime{{ i }}">Retry #{{ i + 1 }}</label>
+                                <div class="call-select-input">
+                                    <input type="number" class="form-control" [(ngModel)]="retry.value"
+                                        placeholder="Enter value">
+
+                                    <select id="retryTime{{ i }}" class="form-control" [(ngModel)]="retry.timeType">
+                                        <option [value]="TimeTypeEnumState.Min">Minutes</option>
+                                        <option [value]="TimeTypeEnumState.Hour">Hours</option>
+                                        <option [value]="TimeTypeEnumState.Day">Days</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 mb-3">
+                    <div class="call-custom-card">
+                        <h6>Real-Time Status</h6>
+
+                        <div class="row pt-1">
+                            <div class="col-12 col-md-4 mb-md-0 mb-2">
+                                <div class="card-icon-content-container" role="alert">
+                                    <div class="img-container" value="blue">
+                                        <img src="/assets/img/api.svg" alt="...">
+                                    </div>
+                                    <p class="m-0">API Connection <br><span value="blue">{{
+                                            status.apiConnection }}</span></p>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-4 mb-md-0 mb-2">
+                                <div class="card-icon-content-container" role="alert">
+                                    <div class="img-container" value="green">
+                                        <img src="/assets/img/call-system.svg" alt="...">
+                                    </div>
+                                    <p class="m-0 p-0"> Call System <br />
+                                        <span value="green">{{ status.callSystem
+                                            }}</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-4 mb-md-0 mb-2">
+                                <div class="card-icon-content-container mb-0" role="alert">
+                                    <div class="img-container" value="orange">
+                                        <img src="/assets/img/last-update.svg" alt="...">
+                                    </div>
+                                    <p class="m-0 p-0"> Last Updated
+                                        <br />
+                                        <span value="orange" *ngIf="callConfigData?.lastUpdatedTime">
+                                            {{callConfigData?.lastUpdatedTime.toDate()| date:
+                                            "d MMM, y"}}
+                                            <span class="ms-1" value="orange">
+                                                {{ callConfigData?.lastUpdatedTime.toDate() | date:
+                                                "hh:mm:ss a" }}
+                                            </span>
+                                        </span>
+                                    </p>
+                                    <span *ngIf="!callConfigData?.lastUpdatedTime">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="loader" *ngIf="isLoading"></div>
+</section>

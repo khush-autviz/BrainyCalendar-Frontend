@@ -1,0 +1,81 @@
+h6 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--textColor);
+}
+
+
+textarea {
+    min-height: 90px;
+    resize: vertical;
+    overflow: auto;
+    font-size: 12px;
+
+    &:focus,
+    &:focus-visible,
+    &:hover {
+        outline: none;
+        box-shadow: none;
+    }
+
+    &::placeholder {
+        color: var(--light-textColor);
+        font-size: 12px;
+    }
+}
+
+::ng-deep .ng-dropdown-panel {
+    left: 0;
+    top: 39px;
+}
+
+::ng-deep .customFix {
+    .ng-select .ng-select-container {
+        padding-left: 8px !important;
+    }
+
+    .ng-select .ng-select-container .ng-value-container .ng-input>input {
+        padding-left: 8px !important;
+    }
+}
+
+
+::ng-deep .customFix {
+    .ng-select .ng-select-container {
+        padding-left: 8px !important;
+    }
+
+    .ng-select .ng-select-container .ng-value-container .ng-input>input {
+        padding-left: 8px !important;
+    }
+}
+
+.custom-input {
+    border-radius: .4rem;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    font-size: 12px;
+    color: var(--textColor) !important;
+    min-height: 38px;
+    width: 100%;
+    padding-left: 12px;
+
+    &::placeholder {
+        font-size: 12px;
+        color: var(--light-textColor);
+        text-transform: capitalize;
+    }
+
+    &:is(:-webkit-autofill, :autofill) {
+        background: transparent !important;
+        border: 1px solid var(--border-color) !important;
+    }
+
+
+    &:focus,
+    &:focus-visible,
+    &:target {
+        outline: none;
+        box-shadow: none;
+    }
+}

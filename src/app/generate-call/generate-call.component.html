@@ -1,0 +1,82 @@
+<form #customerForm="ngForm">
+  <section class="d-flex justify-content-center align-items-center px-3 py-4">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="container-fluid px-0">
+          <div class="header-container sticky-titleNbtn">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h1 class="page-heading">Generate Call</h1>
+              </div>
+
+              <!-- Call the function directly on click instead -->
+              <button type="button" class="btn primary-btn px-3 w-fit" [disabled]="customerForm.invalid"
+                (click)="onSubmit()">
+                Send Call
+              </button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 col-md-4 mb-3">
+              <div class="table-card px-3 pt-3 pb-2 call-custom-card h-100">
+                <h6>Details</h6>
+                <div class="row mt-3">
+                  <div class="col-12 col-md-12 form-group mb-2 generate-dropdown">
+                    <label for="phone">Country Code<sup>*</sup></label>
+                    <ng-select class="form-control country-code" [(ngModel)]="selectedCountryCode" name="countryCode"
+                      id="countryCode" placeholder="Select Country Code" [searchable]="true" [clearable]="false"
+                      (focus)="moveCursorToStart($event)">
+                      <ng-option [value]="undefined">
+                        Select Country Code
+                      </ng-option>
+                      <ng-option *ngFor="let code of countryCodes" [value]="code.phoneCode">
+                        {{ code.countryName }} ({{ code.phoneCode }})
+                      </ng-option>
+                    </ng-select>
+                  </div>
+
+                  <div class="col-12 col-md-12 form-group mb-2">
+                    <label for="phone">Phone Number<sup>*</sup></label>
+                    <input type="text" id="phone" name="phone" class="form-control custom-input"
+                      placeholder="Enter phone number" [(ngModel)]="customerNumber" #phone="ngModel" required
+                      pattern="^\+?[0-9]+$" (keypress)="validateNumberInput($event)"/>
+                    <div *ngIf="phone.invalid && phone.touched" class="text-danger">
+                      <small *ngIf="phone.errors?.required">Phone number is required</small>
+                      <small *ngIf="phone.errors?.pattern">Only digits are allowed (no special
+                        characters)</small>
+                    </div>
+                  </div>
+
+                  <div class="col-12 form-group mb-3">
+                    <label for="name">Customer Name<sup>*</sup></label>
+                    <input type="text" id="name" name="name" class="form-control custom-input"
+                      placeholder="Enter customer name" [(ngModel)]="customer.customerName" #name="ngModel" required />
+                    <small *ngIf="name.invalid && name.touched" class="text-danger">
+                      Customer name is required
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-8 mb-3" *ngIf="callingProvider != callProviderEnumState.Retell">
+              <div class="table-card px-3 pt-2 pb-2">
+                <app-prompts [(height)]="sharedHeight" (formStatusChange)="onChildFormStatusChange($event)"
+                  [isParentExistPromt]="true"></app-prompts>
+              </div>
+            </div>
+
+            <div class="col-12 mb-3" *ngIf="callingProvider != callProviderEnumState.Retell">
+              <div class="table-card px-3 pt-3 pb-2">
+                <app-voices [dynamicHeight]="sharedHeight" [isParentExist]="true"></app-voices>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>
+
+<div class="loader" *ngIf="isLoading"></div>

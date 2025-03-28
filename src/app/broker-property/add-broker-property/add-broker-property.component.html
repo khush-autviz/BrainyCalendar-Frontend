@@ -1,0 +1,113 @@
+<div class="modal-header">
+  <h5 class="modal-title">Add Property</h5>
+  <button type="button" class="btn-close" (click)="close()"></button>
+</div>
+<div class="modal-body">
+  <form (ngSubmit)="save()" #createPropertyForm="ngForm">
+    <div class="mb-3">
+      <label for="urlType" class="form-label">Select Property File Type</label>
+      <select id="urlType" class="form-select" [(ngModel)]="propertyType" name="urlType" required>
+        <option value="" disabled selected>Select Type</option>
+        <option value="url">URL</option>
+        <option value="pdf">PDF</option>
+      </select>
+    </div>
+
+
+
+
+    <!-- Dropdown for URL Type -->
+     <div *ngIf="propertyType == 'url'">
+    <div class="mb-3" *ngIf="propertyType == 'url'">
+      <label for="urlType" class="form-label">Select URL Type</label>
+      <select id="urlType" class="form-select" [(ngModel)]="urlType" name="urlType" required>
+        <option value="" disabled selected>Select Type</option>
+        <option value="list">List of Properties</option>
+        <option value="single">Single Property Detail</option>
+      </select>
+    </div>
+
+    <!-- Input for List of Properties -->
+    <div *ngIf="urlType === 'list'" class="mb-3">
+      <label for="listUrl" class="form-label">Property List URL</label>
+      <input type="text" class="form-control" id="listUrl" [(ngModel)]="urls[0]" name="listUrl"
+        placeholder="Enter property list URL" required />
+    </div>
+
+    <!-- Inputs for Single Property URLs -->
+    <div *ngIf="urlType === 'single'" class="mb-3">
+      <label class="form-label">Single Property URLs</label>
+      <div *ngFor="let url of urls; let i = index" class="d-flex align-items-center mb-3 position-relative">
+        <input type="text" class="form-control me-2" [(ngModel)]="urls[i]" [name]="'url' + i"
+          placeholder="Enter property URL" required />
+        <button *ngIf="urls.length > 1" type="button" class="btn btn-danger btn-sm closeBtn" (click)="removeUrl(i)">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <button type="button" class="btn primary-btn btn-sm" (click)="addUrl()">
+        <i class="fas fa-plus"></i> Add Another URL
+      </button>
+    </div>
+  </div>
+
+      <div class="modal-body"  *ngIf="propertyType == 'pdf'">
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="files">
+            {{ "Select Property" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input
+              type="file"
+              id="files"
+              name="files"
+              class="form-control"
+              (change)="onFilesSelected($event)"
+              multiple
+              accept=".pdf"
+              required
+            />
+            <small class="form-text text-muted">
+              You can upload multiple Properties in PDF . Maximum size: 5 MB per file.
+            </small>
+            <ul class="text-danger" *ngIf="fileSizeErrorMessages.length">
+              <li *ngFor="let message of fileSizeErrorMessages">{{ message }}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="form-group" *ngIf="selectedFiles?.length">
+          <label>{{ "SelectedFiles" | localize }}</label>
+          <ul class="list-group">
+            <li
+              class="list-group-item"
+              *ngFor="let file of selectedFiles; let i = index"
+            >
+              {{ file.name }} ({{ file.size / 1024 | number: '1.0-2' }} KB)
+              <button
+                type="button"
+                class="btn btn-danger btn-sm float-right"
+                (click)="removeFile(i)"
+              >
+                Remove
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+    
+
+    <!-- Save Button -->
+    <div class="py-2 px-3 position-absolute end-0  bottom-0 bg-white w-100 d-flex gap-2 justify-content-end border-top">
+      <button class="btn btn-default" (click)="close()">Cancel</button>
+      <button type="submit" class="btn primary-btn" [disabled]="!createPropertyForm.form.valid">
+        Save
+      </button>
+    </div>
+
+
+
+
+  </form>
+</div>
+
+<div class="loader" *ngIf="isLoading"></div>

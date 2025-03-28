@@ -1,0 +1,24 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_214_321)">
+<rect x="5.7" y="1.7" width="16.6" height="19.6" rx="1.8" stroke="white" stroke-width="1.4"/>
+<rect x="9.5" y="5.5" width="9" height="4" rx="0.5" stroke="white"/>
+<rect x="9.25" y="17.25" width="9.5" height="0.5" rx="0.25" stroke="white" stroke-width="0.5"/>
+<mask id="path-4-inside-1_214_321" fill="white">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M2 5.5C2 5.22386 2.22386 5 2.5 5H5.5C5.77614 5 6 5.22386 6 5.5V5.5C6 5.77614 5.77614 6 5.5 6H2.5C2.22386 6 2 5.77614 2 5.5V5.5Z"/>
+</mask>
+<path d="M2.5 6H5.5V4H2.5V6ZM5.5 5H2.5V7H5.5V5ZM2.5 5C2.77614 5 3 5.22386 3 5.5H1C1 6.32843 1.67157 7 2.5 7V5ZM5 5.5C5 5.22386 5.22386 5 5.5 5V7C6.32843 7 7 6.32843 7 5.5H5ZM5.5 6C5.22386 6 5 5.77614 5 5.5H7C7 4.67157 6.32843 4 5.5 4V6ZM2.5 4C1.67157 4 1 4.67157 1 5.5H3C3 5.77614 2.77614 6 2.5 6V4Z" fill="white" mask="url(#path-4-inside-1_214_321)"/>
+<mask id="path-6-inside-2_214_321" fill="white">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M2 11.5C2 11.2239 2.22386 11 2.5 11H5.5C5.77614 11 6 11.2239 6 11.5V11.5C6 11.7761 5.77614 12 5.5 12H2.5C2.22386 12 2 11.7761 2 11.5V11.5Z"/>
+</mask>
+<path d="M2.5 12H5.5V10H2.5V12ZM5.5 11H2.5V13H5.5V11ZM2.5 11C2.77614 11 3 11.2239 3 11.5H1C1 12.3284 1.67157 13 2.5 13V11ZM5 11.5C5 11.2239 5.22386 11 5.5 11V13C6.32843 13 7 12.3284 7 11.5H5ZM5.5 12C5.22386 12 5 11.7761 5 11.5H7C7 10.6716 6.32843 10 5.5 10V12ZM2.5 10C1.67157 10 1 10.6716 1 11.5H3C3 11.7761 2.77614 12 2.5 12V10Z" fill="white" mask="url(#path-6-inside-2_214_321)"/>
+<mask id="path-8-inside-3_214_321" fill="white">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M2 17.5C2 17.2239 2.22386 17 2.5 17H5.5C5.77614 17 6 17.2239 6 17.5V17.5C6 17.7761 5.77614 18 5.5 18H2.5C2.22386 18 2 17.7761 2 17.5V17.5Z"/>
+</mask>
+<path d="M2.5 18H5.5V16H2.5V18ZM5.5 17H2.5V19H5.5V17ZM2.5 17C2.77614 17 3 17.2239 3 17.5H1C1 18.3284 1.67157 19 2.5 19V17ZM5 17.5C5 17.2239 5.22386 17 5.5 17V19C6.32843 19 7 18.3284 7 17.5H5ZM5.5 18C5.22386 18 5 17.7761 5 17.5H7C7 16.6716 6.32843 16 5.5 16V18ZM2.5 16C1.67157 16 1 16.6716 1 17.5H3C3 17.7761 2.77614 18 2.5 18V16Z" fill="white" mask="url(#path-8-inside-3_214_321)"/>
+</g>
+<defs>
+<clipPath id="clip0_214_321">
+<rect width="24" height="24" fill="white"/>
+</clipPath>
+</defs>
+</svg>

@@ -1,0 +1,30 @@
+<div #calendarContainer style="height: 800px"></div>
+
+<!-- Modal -->
+<div *ngIf="isModalOpen" class="modal-overlay">
+  <div class="modal-content">
+    <button class="close-btn" (click)="modalClose()">×</button>
+    <h3>Create Event</h3>
+
+    <label>Title:</label>
+    <input type="text" [(ngModel)]="newEvent.title" />
+
+    <label>Description</label>
+    <input
+      type="text"
+      [(ngModel)]="newEvent.description"
+      placeholder="Enter escription"
+    />
+
+    <label>Start Time:</label>
+    <input type="datetime-local" [(ngModel)]="newEvent.start" />
+
+    <label>End Time:</label>
+    <input type="datetime-local" [(ngModel)]="newEvent.end" />
+
+    <div class="button-container">
+      <button class="save-btn" (click)="createEvent()">Save</button>
+      <button class="cancel-btn" (click)="modalClose()">Cancel</button>
+    </div>
+  </div>
+</div>

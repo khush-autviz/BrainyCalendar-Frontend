@@ -1,0 +1,91 @@
+<div class="content px-1 py-4">
+    <div class="container-fluid">
+        <div class="">
+            <div class="header-container-secondary position-relative">
+                <div class="col-12">
+                    <h1 class="page-heading m-0 p-0">
+                        Meetings
+                    </h1>
+                </div>
+                <img src="/assets/img/m001t0325_i_20aug22.png" class="img-bg-object" alt="...">
+            </div>
+        </div>
+
+        <div class="table-card ">
+            <div class="px-3 pt-3 mt-1 mb-1">
+                <div class="row ">
+                    <div class="col-12 col-md-3 pe-md-0 mb-2">
+                        <app-date-picker [(selectedDateRange)]="dateRange"
+                            (dateRangeChange)="onDateRangeChanged($event)">
+                        </app-date-picker>
+                    </div>
+
+                    <div class="col-12 col-md-3 pe-md-0 mb-2">
+                        <div class="d-flex">
+                            <input type="text" class="form-control magnify-input" name="keyword" placeholder="Search"
+                                [(ngModel)]="keyword" (keyup.enter)="getAllMeetings()" />
+                            <button type="button" class="btn primary-btn magnify-btn" (click)="getAllMeetings()">
+                                <i class="fas fa-search fs-14"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn green-btn me-2" data-placement="top"
+                            (click)="onFilterChange()">
+                            Show
+                        </button>
+                        <button class="btn clear-btn" data-placement="top" (click)="onClear()">
+                            Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <p-table #dt2 [value]="meetings" [scrollable]="true" scrollHeight="400px" dataKey="id"
+                    [paginator]="true" [rows]="10" [rowHover]="true" [paginatorPosition]="'bottom'" [lazy]="true"
+                    [totalRecords]="totalRecords" [rowsPerPageOptions]="[10, 30, 50]" [showCurrentPageReport]="true"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Customer</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Meeting Schedule Date</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-meeting>
+                        <tr>
+                            <td>{{ meeting.customerName }}</td>
+                            <td>{{ meeting.customerEmail }}</td>
+                            <td>{{ meeting.customerPhoneNumber }}</td>
+                            <td><span style="width:180px" class="d-inline-block">{{ meeting.meetingDate | date: 'd MMM,
+                                    y hh:mm:ss a' }}</span></td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="12" class="text-left text-capitalize">No Meeting history found</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Pagination -->
+<!-- <div class="card-footer ">
+            <div class="row justify-content-end">
+                    <div class="col-md-2">
+                        <p class="mb-0 py-2 border rounded-3 px-3 w-fit" style="font-size: 14px;">
+                            Total Records:
+                            <span>
+                                {{ totalItems }}
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-md-10 col-12 d-flex justify-content-end">
+                        <abp-pagination-controls id="server" (pageChange)="getAllMeetings()"></abp-pagination-controls>
+                    </div>
+                </div>
+            </div> -->

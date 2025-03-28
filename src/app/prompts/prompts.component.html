@@ -1,0 +1,147 @@
+<!-- <ul class="nav nav-tabs" id="promptTabs" role="tablist" *ngIf="!isParentExistPromt">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="outbound-tab" data-bs-toggle="tab" data-bs-target="#outbound" type="button"
+      role="tab" aria-controls="outbound" aria-selected="true"
+      (click)="this.tab = CallEnumState.Outbound; onTabChange()">Outbound</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link " id="inbound-tab" data-bs-toggle="tab" data-bs-target="#inbound" type="button" role="tab"
+      aria-controls="inbound" aria-selected="false"
+      (click)="this.tab = CallEnumState.Inbound; onTabChange()">Inbound</button>
+  </li>
+</ul> -->
+
+<div [ngClass]="{'content py-2' : !isParentExistPromt}">
+  <div class="container-fluid px-0">
+    <form #promptForm="ngForm">
+      <div class="header-container" *ngIf="!isParentExistPromt">
+        <div class="row align-items-center mb-md-2">
+          <div class="col-3">
+            <h1 class="page-heading m-0 p-0">Prompt</h1>
+          </div>
+
+          <div class="col-9">
+            <div class="row justify-content-end align-items-center">
+              <div class="col-auto d-flex gap-2">
+                <button type="submit" class="btn btn-primary fs-12" (click)="save()" [disabled]="promptForm.invalid">
+                  Save Prompt
+                </button>
+
+                <button type="submit" class="btn btn-primary fs-12" (click)="saveAndDefault()"
+                  [disabled]="promptForm.invalid">
+                  Mark As Default
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div [ngClass]="{'table-card px-3 pt-3 pb-2 call-custom-card h-100' :!isParentExistPromt}">
+        <div class="row" [ngClass]="{'mt-3' : !isParentExistPromt}">
+          <div class="col-12" *ngIf="isParentExistPromt">
+            <div class="row align-items-center mb-2">
+              <div class="col-3">
+                <h6 class="page-heading m-0 p-0">Prompt</h6>
+              </div>
+
+              <div class="col-9">
+                <div class="row justify-content-end align-items-center">
+                  <div class="col-auto d-flex gap-2">
+                    <button type="submit" class="btn btn-primary fs-12" (click)="save()"
+                      [disabled]="promptForm.invalid">
+                      Save Prompt
+                    </button>
+
+                    <button type="submit" class="btn btn-primary fs-12" (click)="saveAndDefault()"
+                      [disabled]="promptForm.invalid">
+                      Mark As Default
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group mb-2 customFix" [ngClass]="{'col-md-4': !isParentExistPromt, 'col-md-6': isParentExistPromt}">
+            <label for="">Custom Prompt</label>
+            <ng-select [(ngModel)]="selectedPromptId" name="promptDropDown" (change)="onSelectPromptChange()"
+              [clearable]="false">
+              <ng-option [value]="0">Create a prompt</ng-option>
+              <ng-option *ngFor="let prompt of allPrompts" [value]="prompt.id">{{prompt.title}}</ng-option>
+            </ng-select>
+          </div>
+
+          <div *ngIf="!selectedPromptId" class="form-group col-12 mb-2"
+            [ngClass]="{'col-md-4': !isParentExistPromt, 'col-md-6': isParentExistPromt}">
+            <label for="phone">Title<sup>*</sup></label>
+            <input class="custom-input" [placeholder]="'Title'" [(ngModel)]="selectedPrompt.title" required
+              name="title">
+          </div>
+
+          <!-- <div class="col-12 mb-2" [ngClass]="{'col-md-4': !isParentExistPromt}">
+            <label for="prompt">First Message</label><sup>*</sup>
+            <input (input)="adjustHeight($event)" id="firstMessage" name="firstMessage"
+              class="custom-input form-control" placeholder="Enter prompt details" required
+              [(ngModel)]="selectedPrompt.firstMessage" (ngModelChange)="onFormStatusChange()">
+          </div> -->
+          <div class="col-12 mb-2">
+            <label for="prompt">Call Prompt</label><sup>*</sup>
+            <textarea (input)="adjustHeight($event)" [style.height.px]="height" id="prompt" name="prompt"
+              class="form-control" rows="4" placeholder="Enter prompt details" required
+              [(ngModel)]="selectedPrompt.prompt" (ngModelChange)="onFormStatusChange()">
+            </textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+
+<!-- generate screen Prompt Ui -->
+<!-- <form #promptForm="ngForm" *ngIf="isParentExistPromt">
+  <div class="d-flex justify-content-between align-items-center">
+    <h6>Prompt</h6>
+    <div class="d-flex align-items-center gap-2">
+      <button type="submit" class="btn btn-primary fs-12" (click)="save()" [disabled]="promptForm.invalid">
+        Save Prompt
+      </button>
+      <button type="submit" class="btn btn-primary fs-12" (click)="saveAndDefault()" [disabled]="promptForm.invalid">
+        Mark As Default
+      </button>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="form-group mb-3 col-12 col-md-6 mb-2">
+      <label for="">Custom Prompt</label>
+      <ng-select [(ngModel)]="selectedPromptId" name="promptDropDown" (change)="onSelectPromptChange()"
+        [clearable]="false">
+        <ng-option [value]="0">Create a prompt</ng-option>
+        <ng-option *ngFor="let prompt of allPrompts" [value]="prompt.id">{{prompt.title}}</ng-option>
+      </ng-select>
+    </div>
+
+    <div *ngIf="!selectedPromptId" class="form-group mb-3 col-12 col-md-6 mb-2">
+      <label for="phone">Title<sup>*</sup></label>
+      <input class="custom-input" [placeholder]="'Title'" [(ngModel)]="selectedPrompt.title" required name="title">
+    </div>
+
+    <div class="col-12 mb-3">
+      <label for="prompt">First Message</label><sup>*</sup>
+      <input  (input)="adjustHeight($event)" id="firstMessage" name="firstMessage" class="form-control" 
+       placeholder="Enter prompt details" required [(ngModel)]="selectedPrompt.firstMessage"
+        (ngModelChange)="onFormStatusChange()">
+    </div>
+    <div class="col-12 mb-3">
+      <label for="prompt">Call Prompt</label><sup>*</sup>
+      <textarea (input)="adjustHeight($event)" [style.height.px]="height" id="prompt" name="prompt" class="form-control"
+        rows="4" placeholder="Enter prompt details" required [(ngModel)]="selectedPrompt.prompt"
+        (ngModelChange)="onFormStatusChange()">
+        </textarea>
+    </div>
+
+  </div>
+</form> -->
+<div class="loader" *ngIf="isLoading"></div>

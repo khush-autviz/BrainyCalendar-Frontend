@@ -1,0 +1,370 @@
+.grid-wrapper {
+    display: flex;
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    padding: 40px;
+    align-items: center;
+    overflow: hidden;
+    background-color: var(--main-body);
+}
+
+.leftContainer {
+    width: 42%;
+}
+
+.rightContainer {
+    width: 58%;
+}
+
+::ng-deep .dark-mode .leftContainer {
+    background-color: #223344 !important;
+}
+
+::ng-deep .dark-mode .accountContent h4,
+::ng-deep .dark-mode .accountContent p {
+    color: #fff !important;
+}
+
+.leftContainer {
+    background-color: #E7EDFF;
+    padding: 1.2rem 28px;
+    border-radius: 40px;
+    overflow: hidden;
+    width: fit-content;
+    height: 100%;
+    z-index: 10;
+}
+
+.fixlogo {
+    height: auto;
+    width: 160px;
+}
+
+.accountContent {
+    margin-top: 16px;
+}
+
+.accountContent h4 {
+    margin: 0 0 4px;
+    font-size: 32px;
+    color: #433D4A;
+    font-weight: 600;
+}
+
+.accountContent p {
+    margin: 0;
+    font-weight: 400;
+    font-size: 16px;
+    color: #858585;
+}
+
+.entryImage-container {
+    width: 60%;
+    margin: auto;
+    margin-top: 30px;
+    animation: upDown 8000ms linear infinite;
+}
+
+.entryImage-container img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+@keyframes upDown {
+
+    0%,
+    50%,
+    100% {
+        transform: translateY(10px);
+    }
+
+    25%,
+    75% {
+        transform: translateY(0);
+    }
+}
+
+.rightContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    z-index: 10;
+}
+
+.btnContainer {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+}
+
+.custom-input {
+    position: relative;
+    border-radius: .4rem;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    font-size: 12px;
+    color: var(--textColor) !important;
+    text-transform: capitalize;
+    min-height: 42px;
+    width: 100%;
+    padding-left: 32px;
+}
+
+.custom-input::placeholder {
+    font-size: 12px;
+    color: var(--light-textColor);
+    text-transform: capitalize;
+}
+
+.custom-input:-webkit-autofill,
+.custom-input:autofill {
+    background: transparent !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+.custom-input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.user-group,
+.password-group {
+    position: relative;
+}
+
+.highlight-text {
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    z-index: 8;
+}
+
+.eyeBtn {
+    position: absolute;
+    right: 8px;
+    top: 3px;
+}
+
+.forgot-passwordText,
+.nothaveaccount {
+    font-size: 14px;
+}
+
+.forgot-passwordText a,
+.nothaveaccount a {
+    font-weight: 600 !important;
+}
+
+
+.rightTopOval,
+.middleBottomOval {
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    filter: blur(125px);
+    z-index: 1;
+}
+
+.rightTopOval {
+    right: 80px;
+    top: -442px;
+    background: rgba(140, 107, 255, 0.2);
+}
+
+.middleBottomOval {
+    left: 50%;
+    top: 140%;
+    transform: translate(-50%, -50%);
+    background: rgba(140, 107, 255, .4);
+}
+
+.pwdText {
+    font-size: 14px;
+    bottom: 8px;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: var(--light-textColor);
+    font-weight: 400;
+}
+
+.pwdText span {
+    color: var(--textColor);
+    font-weight: 500;
+}
+
+
+@media screen and (min-width:1440px) {
+    .entryImage-container {
+        height: calc(100% - 190px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .form-container {
+        width: 46%;
+    }
+}
+
+.rightAbstract,
+.leftAbstract {
+    display: none;
+}
+
+@media screen and (max-width:1440px) {
+    .accountContent h4 {
+        font-size: 26px !important;
+    }
+}
+
+@media screen and (max-width:600px) {
+
+    ::ng-deep .dark-mode .leftContainer {
+        background-color: transparent !important;
+    }
+
+    ::ng-deep .dark-mode .accountContent h4,
+    ::ng-deep .dark-mode .accountContent p {
+        color: #2a3547 !important;
+    }
+
+    .grid-wrapper {
+        height: 100vh;
+        flex-direction: column;
+        padding: 16px;
+        gap: 1rem;
+        background-color: #E7EDFF;
+    }
+
+    .rightTopOval {
+        right: -80%;
+        top: -15%;
+    }
+
+    .middleBottomOval {
+        top: 80%;
+        left: 0;
+    }
+
+    .rightAbstract,
+    .leftAbstract {
+        display: block;
+        width: 320px;
+        object-fit: contain;
+        height: auto;
+        position: absolute;
+        z-index: 5;
+    }
+
+    .rightAbstract {
+        right: -20%;
+        bottom: 40%;
+        transform: scaleX(-1);
+    }
+
+    .leftAbstract {
+        left: 0;
+        top: 42%;
+    }
+
+    .leftContainer {
+        background: none;
+        border-radius: 0;
+        left: 16px;
+        top: 8px;
+        position: absolute;
+        height: fit-content;
+        padding: 0;
+
+
+        .logoContainer,
+        .accountContent,
+        .entryImage-container,
+        .light-logo {
+            display: none;
+        }
+    }
+
+    .rightContainer {
+        height: 100%;
+
+        .form-container {
+            background-color: rgba(255, 255, 255, .2);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, .6);
+            border-radius: 24px;
+            padding: 16px;
+            position: relative;
+            z-index: 20;
+
+            h4 {
+                color: #1c252e !important;
+            }
+        }
+    }
+
+    .user-group,
+    .password-group {
+        background: #fff;
+        border-radius: 8px;
+    }
+
+    .fixlogo {
+        width: 110px;
+    }
+
+    .btnContainer {
+        right: 22px;
+        top: 22px;
+    }
+
+    .entryImage-container {
+        display: none;
+    }
+
+    .accountContent {
+        h4 {
+            font-size: 22px !important;
+        }
+
+        p {
+            font-size: 13px !important;
+        }
+    }
+
+    .forgot-passwordText a {
+        font-size: 14px !important;
+    }
+
+    .custom-input,
+    .custom-input:-webkit-autofill,
+    .custom-input:autofill {
+        color: #1c252e !important;
+        border-color: rgba(35, 38, 46, .4) !important;
+    }
+
+    .custom-checkbox .custom-control-label {
+        color: #1c252e !important;
+        font-weight: 500 !important;
+    }
+
+    .custom-checkbox .custom-control-label::before {
+        background-color: #dee2e6;
+    }
+
+    .pwdText {
+        color: #2a3547;
+
+        span {
+            color: #2a3547 !important;
+        }
+    }
+
+    .nothaveaccount {
+        color: #1c252e !important;
+    }
+}

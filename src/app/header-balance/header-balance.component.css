@@ -1,0 +1,42 @@
+.minNplan-container {
+    border: 1px solid var(--border-color);
+    padding: 6px 12px;
+    min-height: 38px;
+    font-weight: 500;
+    justify-content: center;
+    align-items: center;
+    border-radius: .4rem;
+    color: var(--full-blue);
+    background: var(--dim-blue);
+
+    p {
+        font-size: 12px;
+        font-weight: 500;
+        margin: 0 !important;
+    }
+
+    img {
+        width: 22px;
+        height: 22px;
+        object-fit: contain;
+    }
+}
+
+
+@media screen and (max-width:600px) {
+    .minNplan-container {
+
+        p,
+        a {
+            text-align: center;
+            font-size: 12px !important;
+            margin: auto !important;
+        }
+
+        /* div>div {
+            border-bottom: 1px solid rgb(150 150 150 / 90%);
+            width: 100%;
+        } */
+
+    }
+}

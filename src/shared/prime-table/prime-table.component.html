@@ -1,0 +1,31 @@
+<p-table [value]="data" [paginator]="true" [rows]="paginationConfig.pageSize"
+  [totalRecords]="paginationConfig.totalRecords" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" [loading]="loading">
+  <!-- Header -->
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngFor="let col of columns">
+        {{ col.header }}
+      </th>
+    </tr>
+  </ng-template>
+
+  <!-- Body -->
+  <ng-template pTemplate="body" let-rowData>
+    <tr>
+      <td *ngFor="let col of columns">
+        <ng-container *ngIf="!col.customTemplate">
+          <!-- Check if column type is 'date' -->
+          <span *ngIf="col.type === 'date'; else normalField">
+            {{ rowData[col.field] | date: 'short' }}
+          </span>
+          <ng-template #normalField>
+            {{ rowData[col.field] }}
+          </ng-template>
+        </ng-container>
+        <ng-container *ngIf="col.customTemplate">
+          <ng-container *ngTemplateOutlet="col.customTemplate"></ng-container>
+        </ng-container>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

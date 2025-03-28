@@ -1,0 +1,91 @@
+<div class="mainContainer">
+
+  <div class="logoAtTop">
+    <img src="../../assets/img/Logo/dark-logo.svg" alt="..." class="fixLogo">
+  </div>
+
+  <div class="demo-content">
+    <h1 class="gradientText-heading">Lets Automation Help Your Business Boom</h1>
+    <p>Increase your overall reach, cut-off your costs, and let your business’s full potential unlocked with BrainyBoss.
+    </p>
+  </div>
+
+  <form #callForm="ngForm" (ngSubmit)="enqueueCall()" class="w-100">
+    <div class="position-relative form-container-wrapper mx-auto">
+      <img src="/assets/img/bg-demo.svg" alt="..." class="bg-cover-img">
+      <div class="row formContainer">
+        <!-- Country Code Dropdown -->
+        <div class="mb-3 col-12 col-md-4 selectCode-wrapper">
+          <label for="countryCode" class="form-label">Country Code<sup>*</sup></label>
+          <ng-select class="custom-input text-capitalize" [(ngModel)]="selectedCountryCode" name="countryCode"
+            id="countryCode" placeholder="Select Country Code" [searchable]="true" [clearable]="false"
+            (focus)="moveCursorToStart($event)">
+            <ng-option [value]="undefined">Select Country Code</ng-option>
+            <ng-option *ngFor="let code of countryCodes" [value]="code.phoneCode">
+              {{ code.countryName }} ({{ code.phoneCode }})
+            </ng-option>
+          </ng-select>
+        </div>
+
+        <!-- Phone Number Input -->
+        <div class="mb-3 col-12 col-md-8">
+          <label for="phone" class="form-label">Phone Number<sup>*</sup></label>
+          <input type="text" id="phone" name="phone" class="form-control custom-input" placeholder="Enter phone number"
+            [(ngModel)]="customerNumber" #phone="ngModel" required pattern="^[0-9 -]+$" />
+          <div *ngIf="phone.invalid && phone.touched" class="text-danger small">
+            <small *ngIf="phone.errors?.required">Phone number is required</small>
+            <small *ngIf="phone.errors?.pattern">Only digits are allowed (no special characters)</small>
+          </div>
+        </div>
+
+        <!-- Customer Name Input -->
+        <div class="mb-3 col-12">
+          <label for="name" class="form-label">First Name<sup>*</sup></label>
+          <input type="text" id="name" name="name" class="form-control custom-input" placeholder="Enter customer name"
+            [(ngModel)]="demoCall.customerName" #name="ngModel" required pattern="^[a-zA-Z ]+$" />
+
+          <small *ngIf="name.invalid && name.touched" class="text-danger">
+            <span *ngIf="name.errors?.pattern">Only alphabets are allowed (No spaces or special characters)</span>
+          </small>
+        </div>
+
+
+        <div class="col-12">
+          <!-- Submit Button -->
+          <button type="submit" class="btn primary-btn w-100" [disabled]="callForm.invalid">
+            <span *ngIf="!isLoading">Call</span>
+            <span *ngIf="isLoading"><i class="spinner-border spinner-border-sm"></i> Calling...</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- Loader -->
+  <div class="d-flex justify-content-center mt-3" *ngIf="isLoading">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- popup -->
+<!-- *ngIf="showModal" -->
+<!-- !!! Note !!!  add d-flex to show popup   -->
+<div class="modal show demoCall-modal">
+  <div class="modal-content p-0 bg-white">
+
+    <div class="modal-body p-4">
+
+      <img src="/assets/img/Frame 1261155893.png" alt="...">
+      <h4 class="text-center mx-auto mt-2">
+        Placing Your Call<br />
+        We’re Getting You Connected
+      </h4>
+
+      <button class="btn primary-btn mt-4" (click)="closeImageUploadModal()">
+        Close</button>
+    </div>
+  </div>
+</div>

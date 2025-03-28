@@ -1,0 +1,103 @@
+﻿<div class="grid-wrapper" [@routerTransition]>
+  <div class="rightTopOval"></div>
+  <div class="middleBottomOval"></div>
+  <img class="rightAbstract" src="/assets/img/Vector.svg" />
+  <img class="leftAbstract" src="/assets/img/Vector.svg" />
+  <h4 class="pwdText">Powered by <span>Autviz Solutions</span></h4>
+
+  <!-- left -->
+  <!-- Image and Content -->
+  <div class="leftContainer">
+    <div class="logoContainer">
+      <img src="../../assets/img/Logo/light-logo.svg" class="d-none d-md-block sidebar-logo light-logo fixlogo"
+        alt="Logo">
+      <img src="../../assets/img/Logo/dark-logo.svg" class="d-none d-md-block sidebar-logo dark-logo fixlogo"
+        alt="Logo" />
+    </div>
+    <img src="../../assets/img/Logo/dark-logo.svg" class="d-block d-md-none fixlogo" alt="Logo" />
+
+    <div class="accountContent">
+      <h4>Smart AI Assistance</h4>
+      <p>Unlock the power of AI to automate tasks, manage workflows, and boost productivity effortlessly.</p>
+    </div>
+
+    <div class="entryImage-container">
+      <img src="/assets/img/account-img.svg" alt="...">
+    </div>
+
+  </div>
+
+
+
+
+  <!-- right -->
+  <!-- Form Container -->
+
+  <div class="rightContainer">
+    <div class="btnContainer d-none d-md-block">
+      <app-theme-btn></app-theme-btn>
+    </div>
+
+    <div class="form-container">
+      <h4 class="mb-3 fw-semibold fw-5 capitalize">{{ "Log In" | localize }}</h4>
+      <form novalidate autocomplete="off" #loginForm="ngForm" (ngSubmit)="login()">
+        <div class="form-group mb-3">
+          <div class="user-group">
+            <i class="fa-solid fa-user highlight-text"></i>
+            <input type="text" class="custom-input" name="userNameOrEmailAddress"
+              [(ngModel)]="authService.authenticateModel.userNameOrEmailAddress"
+              [placeholder]="'Email Address' | localize" required maxlength="256" #userNameOrEmailAddressModel="ngModel"
+              #userNameOrEmailAddressEl />
+          </div>
+          <abp-validation-summary [control]="userNameOrEmailAddressModel"
+            [controlEl]="userNameOrEmailAddressEl"></abp-validation-summary>
+        </div>
+
+        <div class="form-group mb-1">
+          <div class="password-group">
+            <i class="fa-solid fa-lock highlight-text"></i>
+            <input [type]="showPassword ? 'text' : 'password'" class="custom-input" name="password"
+              [(ngModel)]="authService.authenticateModel.password" [placeholder]="'Password' | localize" required
+              maxlength="32" #passwordModel="ngModel" #passwordEl />
+
+            <button *ngIf="authService.authenticateModel.password" class="btn eyeBtn" type="button"
+              (click)="togglePassword()">
+              <i class="fa text-color" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+            </button>
+
+          </div>
+          <abp-validation-summary [control]="passwordModel" [controlEl]="passwordEl"></abp-validation-summary>
+        </div>
+        <div class="form-group row mb-1">
+          <div class="col-md-12 mb-2 d-flex justify-content-between align-items-center">
+            <div class="custom-control custom-checkbox justify-content-start">
+              <input type="checkbox" class="custom-control-input" id="rememberMe" name="rememberMe"
+                [(ngModel)]="authService.rememberMe" />
+              <label for="rememberMe" class="custom-control-label text-color fw-light">
+                {{ "RememberMe" | localize }}
+              </label>
+            </div>
+
+            <div class="forgot-passwordText">
+              <a [routerLink]="['../forget-password']">
+                {{ "Forgot Your Password?" | localize }}
+              </a>
+            </div>
+          </div>
+          <div class="col-md-12 mt-3">
+            <button type="submit" class="btn gradient-btn btn-block" [disabled]="!loginForm.form.valid || submitting">
+              {{ "LogIn" | localize }}
+            </button>
+          </div>
+        </div>
+      </form>
+      <p class="mb-1 d-flex align-items-center nothaveaccount text-center fw-normal justify-content-center">
+        Don't have an account?
+        <a [routerLink]="['../register']" class="ml-1 fw-500">
+          {{ "Register" | localize }}
+        </a>
+      </p>
+    </div>
+
+  </div>
+</div>

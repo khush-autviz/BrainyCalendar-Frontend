@@ -1,0 +1,232 @@
+﻿<div class="grid-wrapper" [@routerTransition]>
+  <div class="rightTopOval"></div>
+  <div class="middleBottomOval"></div>
+  <img class="rightAbstract" src="/assets/img/Vector.svg" />
+  <img class="leftAbstract" src="/assets/img/Vector.svg" />
+  <h4 class="pwdText">Powered by <span>Autviz Solutions</span></h4>
+
+  <!-- left -->
+  <!-- Image and Content -->
+  <div class="leftContainer">
+
+    <div class="logoContainer">
+      <img src="../../assets/img/Logo/light-logo.svg" class="d-none d-md-block sidebar-logo light-logo fixlogo"
+        alt="Logo">
+      <img src="../../assets/img/Logo/dark-logo.svg" class="d-none d-md-block sidebar-logo dark-logo fixlogo"
+        alt="Logo" />
+    </div>
+    <img src="../../assets/img/Logo/dark-logo.svg" class="d-block d-md-none fixlogo" alt="Logo" />
+
+    <div class="accountContent">
+      <h4>Smart AI Assistance</h4>
+      <p>Unlock the power of AI to automate tasks, manage workflows, and boost productivity effortlessly.</p>
+    </div>
+
+    <div class="entryImage-container">
+      <img src="/assets/img/account-img.svg" alt="...">
+    </div>
+
+  </div>
+
+
+
+
+  <!-- right -->
+  <!-- Form Container -->
+
+  <div class="rightContainer">
+    <div class="btnContainer d-none d-md-block">
+      <app-theme-btn></app-theme-btn>
+    </div>
+
+    <div class="form-container">
+      <h4 class="mb-3 fw-semibold fw-5">{{ "Register" | localize }}</h4>
+
+      <form autocomplete="off" #registerForm="ngForm" (ngSubmit)="save()" class="row form-input-container">
+        <div class="col-12 col-md-6">
+          <label for="country">{{ 'Full Name' | localize }}<sup>*</sup></label>
+          <div class="form-group">
+            <div class="input-group">
+              <input type="text" class="custom-input text-capitalize" name="fullName"
+                placeholder="{{ 'Full Name' | localize }}" required maxlength="64" pattern="^[a-zA-Z\s]+$"
+                [(ngModel)]="model.name" #surnameModel="ngModel" #surnameEl />
+            </div>
+            <abp-validation-summary [control]="surnameModel" [controlEl]="surnameEl"></abp-validation-summary>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label for="emailAddress">{{ 'Email Address' | localize }}<sup>*</sup></label>
+          <div class="form-group">
+            <div class="input-group">
+              <input type="email"  class="custom-input" name="emailAddress" placeholder='Enter Email Address'
+                required maxlength="256" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,})+$"
+                [(ngModel)]="model.emailAddress" #emailAddressModel="ngModel" #emailAddressEl />
+            </div>
+            <abp-validation-summary [control]="emailAddressModel" [controlEl]="emailAddressEl"></abp-validation-summary>
+          </div>
+        </div>
+
+        <!-- <div class="form-group">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                name="userName"
+                placeholder="{{ 'UserName' | localize }}"
+                required
+                maxlength="32"
+                [(ngModel)]="model.userName"
+                #userNameModel="ngModel"
+                #userNameEl
+              />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-user"></span>
+                </div>
+              </div>
+            </div>
+            <abp-validation-summary
+              [control]="userNameModel"
+              [controlEl]="userNameEl"
+            ></abp-validation-summary>
+          </div> -->
+
+        <div class="col-12 col-md-6">
+          <label for="password">{{ 'Password' | localize }}<sup>*</sup></label>
+          <div class="form-group">
+            <div class="input-group">
+              <input type="{{ passwordVisible ? 'text' : 'password' }}" class="custom-input" name="password"
+                placeholder="{{ 'Password' | localize }}" required maxlength="32" [(ngModel)]="model.password"
+                #passwordModel="ngModel" #passwordEl pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$" />
+              <div class="input-group-append">
+                <button type="button" (click)="togglePasswordVisibility('password')"
+                  class="text-color py-1 px-2 eyeBtn btn">
+                  <i class="fa" [ngClass]="passwordVisible ? 'fa-eye' : 'fa-eye-slash'"></i>
+                </button>
+              </div>
+            </div>
+            <!-- <abp-validation-summary [control]="passwordModel" [controlEl]="passwordEl"></abp-validation-summary> -->
+            <!-- Error Message for Password Validation -->
+            <div *ngIf="passwordModel.invalid && passwordModel.touched" class="error-text">
+              Password must be at least 8 characters long, including one uppercase letter, one lowercase letter, and
+              one number.
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label for="country">{{ 'Country' | localize }}<sup>*</sup></label>
+            <div class="country-wrapper">
+              <ng-select class="" name="country" id="country" required [(ngModel)]="model.country"
+                #countryModel="ngModel" #countryEl placeholder="Select Country">
+                <ng-option *ngFor="let country of countries" [value]="country.countryName">
+                  {{ country.countryName }}
+                </ng-option>
+              </ng-select>
+            </div>
+            <abp-validation-summary [control]="countryModel" [controlEl]="countryEl"></abp-validation-summary>
+          </div>
+        </div>
+        
+
+        <!-- Additional Fields -->
+        <div class="col-12 col-md-6">
+          <label for="country">{{ 'Company Name' | localize }}<sup>*</sup></label>
+          <div class="form-group">
+            <div class="input-group">
+              <input type="text" class="custom-input " name="agencyName" placeholder="{{ 'Company Name' | localize }}"
+                required maxlength="128" [(ngModel)]="model.fullAgencyName" #agencyNameModel="ngModel" #agencyNameEl />
+            </div>
+            <abp-validation-summary [control]="agencyNameModel" [controlEl]="agencyNameEl"></abp-validation-summary>
+          </div>
+        </div>
+
+        <!-- <div class="col-12">
+          <label for="country">{{ 'Company Address' | localize }}<sup>*</sup></label>
+          <div class="form-group">
+            <div class="input-group">
+              <input type="text" class="custom-input" name="agencyAddress"
+                placeholder="{{ 'Company Address' | localize }}" required maxlength="256"
+                [(ngModel)]="model.agencyAddress" #agencyAddressModel="ngModel" #agencyAddressEl />
+            </div>
+            <abp-validation-summary [control]="agencyAddressModel"
+              [controlEl]="agencyAddressEl"></abp-validation-summary>
+          </div>
+        </div> -->
+
+        <!-- <div class="form-group">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                name="professionalLicenseNumber"
+                placeholder="{{ 'Professional License Number' | localize }}"
+                maxlength="64"
+                [(ngModel)]="model.professionalLicenseNumber"
+                #professionalLicenseNumberModel="ngModel"
+                #professionalLicenseNumberEl
+              />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-id-card"></span>
+                </div>
+              </div>
+            </div>
+            <abp-validation-summary
+              [control]="professionalLicenseNumberModel"
+              [controlEl]="professionalLicenseNumberEl"
+            ></abp-validation-summary>
+          </div> -->
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label for="industry">{{ 'Industry' | localize }}<sup>*</sup></label>
+            <div class="input-group position-relative selectIndustry-wrapper">
+              <!-- <div class="dropdown-chevron dropdown-position"></div> -->
+              <ng-select class="form-control " placeholder="Select Industry" name="industry" id="industry" required
+                [(ngModel)]="model.industry" #industryModel="ngModel" #industryEl>
+                <ng-option [value]="null" disabled>{{ 'Select Industry' | localize }}</ng-option>
+                <ng-option *ngFor="let industry of commonService.industries" [value]="industry.Value">{{
+                  industry.Name
+                  }}
+                </ng-option>
+              </ng-select>
+            </div>
+            <abp-validation-summary [control]="industryModel" [controlEl]="industryEl"></abp-validation-summary>
+          </div>
+        </div>
+        <!-- <div class="form-group">
+          <div class="input-group d-flex flex-row flex-nowrap align-items-center">
+            <input type="url" class="custom-input" name="website" placeholder="{{ 'Website' | localize }}"
+              maxlength="256" [(ngModel)]="model.website" #websiteModel="ngModel" #websiteEl />
+            <div class="input-group-text btn primary-btn websiteBtn">
+              <span class="fas fa-link"></span>
+            </div>
+          </div>
+          <abp-validation-summary [control]="websiteModel" [controlEl]="websiteEl"></abp-validation-summary>
+        </div> -->
+
+
+        <div class="col-12">
+          <!-- <button type="button" class="btn btn-default" [disabled]="saving" [routerLink]="['../login']">
+              <i class="fa fa-arrow-circle-left"></i> {{ "Back" | localize }}
+            </button> -->
+        </div>
+        <div class="col-12 mt-3">
+          <button type="submit" class="btn gradient-btn btn-block" [disabled]="!registerForm.form.valid || saving">
+            {{ "Register" | localize }}
+          </button>
+          <!-- back btn -->
+          <p class="mb-1 mt-1 d-flex align-items-center text-center justify-content-center fw-normal nothaveaccount">
+            Already have account?
+            <a [routerLink]="['../login']" class="ml-1 fw-500">
+              {{ "Login" | localize }}
+            </a>
+          </p>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

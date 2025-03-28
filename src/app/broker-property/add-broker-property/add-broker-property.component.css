@@ -1,0 +1,10 @@
+.closeBtn {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: -10px !important;
+    right: -2px !important;
+    position: absolute;
+}

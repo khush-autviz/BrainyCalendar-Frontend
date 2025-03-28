@@ -1,0 +1,69 @@
+.img-bg-object {
+    position: absolute;
+    top: -19px;
+    right: 20px;
+    width: 230px;
+    object-fit: contain;
+}
+
+
+.card-img-container {
+    border: 1px solid var(--border-color);
+    padding: 16px 22px;
+    color: var(--textColor);
+    border-radius: var(--borderRadius);
+    background-color: var(--card-bg);
+    min-height: 202px;
+
+    h4 {
+        margin: 0;
+    }
+
+    p {
+        margin: 0;
+        font-size: 14px;
+        padding-top: 1.2rem;
+    }
+
+    .img-container {
+        width: 50px;
+        height: 50px;
+
+        img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+    }
+}
+
+.btn {
+    width: 100% !important;
+    margin-top: 18px;
+}
+
+.conntedEmail {
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+
+    span {
+        font-weight: 500;
+    }
+}
+
+.card-img-container h4 {
+    font-size: 15px;
+}
+
+@media screen and (max-width:600px) {
+    .img-bg-object {
+        top: -14px;
+        right: 0px;
+        width: 190px;
+    }
+
+    .card-img-container {
+        min-height: fit-content;
+    }
+}

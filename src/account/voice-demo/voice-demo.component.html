@@ -1,0 +1,292 @@
+<div class="voice-wrapper">
+  <header class="position-sticky border-bottom border-slate-200">
+    <div class="container py-2 px-4 mx-auto">
+      <div class="d-flex justify-content-between align-items-center">
+        <a href="https://brainyboss.ai/"
+          ><img
+            src="https://brainyboss.ai/wp-content/uploads/2024/12/brainyboss-logo-new.webp"
+            alt="BrainyBoss"
+            style="width: 120px"
+        /></a>
+
+        <!-- menu -->
+        <div class="d-flex gap-2 gap-md-4 align-items-center">
+          <!-- <a href="https://brainyboss.ai/" class="gradient-text fs-14 font-semibold">BrainyBoss</a> -->
+          <a
+            href="https://app.brainyboss.ai/#/account/register"
+            class="signIn-btn fs-14"
+            >Sign In</a
+          >
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container mx-auto px-4">
+    <div class="mt-3 mb-3 z-10 relative">
+      <div class="grid-autofit">
+        <div
+          *ngFor="let item of items"
+          class="voice-icon-container"
+          [ngClass]="{
+            'voice-bg-gradient': selectedItem.name === item.name,
+            'bg-white': selectedItem.name !== item.name
+          }"
+          (click)="onItemClick(item)"
+        >
+          <!-- <i class="fa-solid" [ngClass]="item.icon"></i> -->
+          <span class="ml-2 text-xs md:fs-14">{{ item.name }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- body area is here -->
+  <div class="container mx-auto px-4 z-10">
+    <div class="row mt-2">
+      <div
+        class="col-12 col-md-8 mb-2 mb-md-0"
+        [ngClass]="{ 'col-md-12': !openTranscript }"
+      >
+        <div class="demo-container overflow-hidden">
+          <!-- Hotel -->
+          <div
+            class="common-img hotel-img"
+            *ngIf="selectedItem.name === 'Hotel'"
+          >
+            <img src="/assets/img/demo-icons/hotel-bg.png" alt="Hotel" />
+          </div>
+
+          <!-- E-commerce & Retail -->
+          <div
+            class="common-img retail-img"
+            *ngIf="selectedItem.name === 'E-commerce and Retail'"
+          >
+            <img
+              src="/assets/img/demo-icons/eccomerce-retail.png"
+              alt="E-commerce and Retail"
+            />
+          </div>
+
+          <!-- Financial Services -->
+          <div
+            class="common-img bank-img"
+            *ngIf="selectedItem.name === 'Financial Services'"
+          >
+            <img
+              src="/assets/img/demo-icons/bank.png"
+              alt="Financial Services"
+            />
+          </div>
+
+          <!-- Telecommunications -->
+          <div
+            class="common-img tele-img"
+            *ngIf="selectedItem.name === 'Telecommunications'"
+          >
+            <img
+              src="/assets/img/demo-icons/Telecommunications.png"
+              alt="Telecommunications"
+            />
+          </div>
+
+          <!-- Insurance -->
+          <div
+            class="common-img insurance-img"
+            *ngIf="selectedItem.name === 'Insurance'"
+          >
+            <img src="/assets/img/demo-icons/insurance.png" alt="Insurance" />
+          </div>
+
+          <!-- Healthcare -->
+          <div
+            class="common-img health-img"
+            *ngIf="selectedItem.name === 'Healthcare'"
+          >
+            <img src="/assets/img/demo-icons/health.png" alt="Healthcare" />
+          </div>
+
+          <!-- Left Section: Customer Info -->
+          <div class="nameNindutry-container">
+            <h2 class="voiceName">{{ selectedAgent.name }}</h2>
+            <p class="industryText">
+              Customer Support: <span>{{ selectedIndustry.name }}</span>
+            </p>
+            <!-- Updated this line -->
+          </div>
+
+          <!-- Center: Avatar with controls -->
+          <div
+            class="d-flex flex-column align-items-center mb-3 mx-auto"
+            style="margin-top: 48px"
+          >
+            <div
+              class="relative mb-6 d-flex justify-content flex-column align-items-center"
+            >
+              <!-- Avatar Image -->
+              <div
+                [ngClass]="{ 'request-loader': transcript.length && call_on }"
+              >
+                <img
+                  [src]="selectedAgent.img"
+                  [alt]="selectedAgent.name"
+                  class="d-flex align-center justify-center rounded-circle border-2 border-gray-300 shadow-lg object-cover z-10 relative mainAvatar-img"
+                />
+              </div>
+
+              <div class="connectingNcliconBtn-container my-3">
+                <div *ngIf="!isLoading" class="clickNote">
+                  <p class="fs-14 mb-0">
+                    Click on call button to start voice demo
+                  </p>
+                </div>
+
+                <div *ngIf="isLoading" class="connecting mx-auto"></div>
+              </div>
+            </div>
+            <!-- Controls -->
+            <div class="d-flex align-items-center gap-2">
+              <button
+                [ngClass]="
+                  call_initiated ? 'nonActive-gradient-box' : 'gradient-box'
+                "
+                [disabled]="call_initiated"
+                (click)="handleCall()"
+              >
+                <i class="fa-solid fa-phone"></i>
+              </button>
+              <button
+                [ngClass]="!call_on ? 'nonActive-gradient-box' : 'gradient-box'"
+                (click)="handleMute()"
+              >
+                <i
+                  [ngClass]="isMuted ? 'fa-microphone-slash' : ' fa-microphone'"
+                  class="fa-solid"
+                ></i>
+              </button>
+              <button
+                [ngClass]="!call_on ? 'nonActive-gradient-box' : 'gradient-box'"
+                (click)="handleCallEnd()"
+              >
+                <i class="fa-solid fa-phone-slash"></i>
+              </button>
+              <button class="gradient-box" (click)="openTranscriptBtn()">
+                <i
+                  [ngClass]="
+                    !openTranscript ? 'fa-comment-slash' : ' fa-comment'
+                  "
+                  class="fa-solid"
+                ></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- left Section: Other Agents -->
+          <div
+            class="position-absolute gap-2 d-flex flex-column selectVoice-container"
+          >
+            <!-- <img src="https://demo.gigaml.net/_next/static/media/SwapAgent.ab5b3fc7.svg" alt="..."
+                            class="voiceChange"> -->
+            <div
+              *ngFor="let agent of otherAgents"
+              class="d-flex flex-column align-items-center voices-container"
+              [ngClass]="{ 'disable-cursor': call_initiated }"
+            >
+              <img
+                [src]="agent.img"
+                [alt]="agent.name"
+                [ngClass]="{ selectedAgent: selectedAgent == agent }"
+                (click)="changeAgent(agent)"
+              />
+              <!-- <p class="fs-10 mt-1 font-bold">{{ agent.name }}</p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4 mb-3 mb-md-0" *ngIf="openTranscript">
+        <div class="demo-container relative overflow-hidden">
+          <div
+            *ngIf="!isLoading && !transcript.length"
+            class="d-flex justify-content-center flex-column align-items-center h-100"
+          >
+            <div class="callmsg-icon"></div>
+            <h6 class="callmsg-text">Further conversation appear here.</h6>
+          </div>
+
+          <div class="chat-container" #chatContainer>
+            <div class="chat-box my-2" *ngFor="let item of transcript">
+              <div
+                *ngIf="item?.role === 'agent'"
+                class="sender-box d-flex gap-3"
+              >
+                <img [src]="selectedAgent.img" class="bot-img" alt="..." />
+                <div class="message sender">{{ item?.content }}</div>
+              </div>
+
+              <div
+                *ngIf="item?.role === 'user'"
+                class="receiver-box d-flex gap-3 justify-content-end"
+              >
+                <div class="message receiver">{{ item?.content }}</div>
+                <div class="noUser-img"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- skelton view -->
+          <!-- hide when real chat follow's -->
+          <div *ngIf="isLoading" class="skeletonChat-container">
+            <!-- left chat -->
+            <section class="skeletonChat-chat gap-3">
+              <figure
+                class="skeletonChat-chat-avatar skeletonChat-loading"
+              ></figure>
+              <div class="skeletonChat-chat-content">
+                <div
+                  class="skeletonChat-chat-text--small skeletonChat-loading"
+                ></div>
+                <div
+                  class="skeletonChat-chat-text--large skeletonChat-loading"
+                ></div>
+              </div>
+            </section>
+
+            <!-- right chat -->
+            <section class="skeletonChat-chat mt-3 gap-3">
+              <div class="skeletonChat-chat-content">
+                <div
+                  class="skeletonChat-chat-text--small ml-auto skeletonChat-loading"
+                ></div>
+                <!-- <div class="skeletonChat-chat-text--large skeletonChat-loading"></div> -->
+              </div>
+              <figure
+                class="skeletonChat-chat-avatar skeletonChat-loading"
+              ></figure>
+            </section>
+
+            <!-- left chat -->
+            <section class="skeletonChat-chat mt-3 gap-3">
+              <figure
+                class="skeletonChat-chat-avatar skeletonChat-loading"
+              ></figure>
+              <div class="skeletonChat-chat-content">
+                <div
+                  class="skeletonChat-chat-text--small skeletonChat-loading"
+                ></div>
+                <div
+                  class="skeletonChat-chat-text--large skeletonChat-loading"
+                ></div>
+                <div
+                  class="skeletonChat-chat-text--small mt-1 skeletonChat-loading"
+                ></div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- body UI end here -->
+</div>

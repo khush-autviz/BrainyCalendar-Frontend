@@ -1,0 +1,51 @@
+<div class="px-2 tabBG contentMnus-margin pt-4">
+  <div class="col-12">
+    <div class="orders-tab-menu p-0">
+      <nav class="navbar navbar-expand p-0 justify-content-between d-block d-xl-flex align-items-end">
+        <ul class="navbar-nav m-0 pt-0 nav-tabs border-0  position-relative" id="main_tabs">
+          <li class="nav-item d-inline-block " (click)="setTab(CallTabs.CallConfig)">
+            <a class="nav-link min-h rounded-top text-center d-flex align-items-center"
+              [class.active]="selectedTab === CallTabs.CallConfig">
+              {{ "Call Management" | localize }}
+            </a>
+          </li>
+          <!-- <li class="nav-item d-inline-block " (click)="setTab(CallTabs.PhoneManagement)" *ngIf="this.callingProvider != callProviderEnumState.Retell">
+            <a class="nav-link min-h rounded-top text-center d-flex align-items-center"
+              [class.active]="selectedTab === CallTabs.PhoneManagement">
+              {{ "Purchase Number" | localize }}
+            </a>
+          </li> -->
+          <li class="nav-item d-inline-block " (click)="setTab(CallTabs.Prompts)" *ngIf="this.callingProvider != callProviderEnumState.Retell">
+            <a class="nav-link  min-h rounded-top text-center d-flex align-items-center"
+              [class.active]="selectedTab === CallTabs.Prompts">
+              {{ "Prompts" | localize }}
+            </a>
+          </li>
+          <li class="nav-item d-inline-block " (click)="setTab(CallTabs.Voices)" *ngIf="this.callingProvider != callProviderEnumState.Retell">
+            <a class="nav-link  min-h rounded-top text-center d-flex align-items-center"
+              [class.active]="selectedTab === CallTabs.Voices">
+              {{ "Pick Your Voice" | localize }}
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="tab-content mt-3">
+      <div *ngIf="selectedTab === CallTabs.CallConfig">
+
+        <app-call-configuration></app-call-configuration>
+      </div>
+      <!-- <div *ngIf="selectedTab === CallTabs.PhoneManagement">
+
+        <app-phone-number></app-phone-number>
+      </div> -->
+      <div *ngIf="selectedTab === CallTabs.Voices && this.callingProvider != callProviderEnumState.Retell">
+        <app-voices></app-voices>
+      </div>
+      <div *ngIf="selectedTab === CallTabs.Prompts && this.callingProvider != callProviderEnumState.Retell">
+        <app-prompts></app-prompts>
+      </div>
+    </div>
+  </div>
+  <div class="loader" *ngIf="isLoading"></div>
+</div>

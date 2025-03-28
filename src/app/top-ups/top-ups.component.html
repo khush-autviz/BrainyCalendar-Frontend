@@ -1,0 +1,33 @@
+<div class="px-1 py-0">
+  <div class="content">
+    <div class="container-fluid px-2">
+      <div class="row">
+        <div class="header-container-secondary">
+          <h1 class="page-heading">Choose Your Plan</h1>
+          <img src="/assets/img/card-bg/top-up.png" alt="..." class="img-bg-object">
+        </div>
+
+        <div class="px-12 px-0">
+          <div class="row">
+            <div *ngFor="let plan of topups" class="col-md-4">
+              <div class="card mb-4 shadow-sm mb-2">
+                <div class="card-body">
+                  <p class="card-text">
+                    <strong>${{ plan.price }}/month</strong>
+                    <br />
+                    {{ plan.minutes }} minutes included
+                    <br />
+                  </p>
+                  <button class="btn primary-btn btn-block" *ngIf="activePlanId!=plan.id"
+                    (click)="selectTopup(plan)">Subscribe</button>
+                  <button class="btn green-btn btn-block" *ngIf="activePlanId==plan.id">Active</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="loader" *ngIf="isLoading"></div>

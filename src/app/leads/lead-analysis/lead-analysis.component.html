@@ -1,0 +1,56 @@
+<div class="row row-gap-3">
+  <div class="col-auto col-md-4 pe-md-0  mob-card">
+    <div class="lead-custom-card first-card overflow-hidden">
+      <div class="first-card-bg">
+        <img src="/assets/img/magnet.png" alt="...">
+      </div>
+      <div>
+        <div class="card-header z-3 position-relative">Today's New Lead</div>
+        <div class="card-body z-3 position-relative">
+          <h2 class="mb-0">{{ analysisData.newLead }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-auto col-md-4  pe-md-0 mob-card">
+    <div class="lead-custom-card second-card overflow-hidden">
+      <div class="second-card-bg">
+        <img src="/assets/img/magnet (1).png" alt="...">
+      </div>
+      <div>
+        <div class="card-header">Today's Qualified Lead</div>
+        <div class="card-body">
+          <h2 class="mb-0">{{ analysisData.qualifiedLead }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-auto col-md-4  mob-card">
+    <div class="lead-custom-card third-card overflow-hidden">
+      <div class="third-card-bg">
+        <img src="/assets/img/network.png" alt="...">
+      </div>
+      <div>
+        <div class="card-header">Leads by Source</div>
+        <div class="card-body d-flex">
+          <ul class="d-flex align-items-end" *ngIf="!isRetellCallProvided">
+            <li *ngIf="analysisData?.sourceLead?.length === 0" class="fs-16 mb-0">
+              <span class="me-1">0</span>
+            </li>
+            <li *ngFor="let source of analysisData.sourceLead" class="fs-16 mb-0" >
+              <div class="me-1">
+                <span >{{ source.Source}}:</span> {{ source.Total}}
+              </div>
+            </li>
+          </ul>
+          <div *ngIf="isRetellCallProvided">{{sumOfLeads}}</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

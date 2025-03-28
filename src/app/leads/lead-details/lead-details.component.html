@@ -1,0 +1,238 @@
+<section class="px-3 py-4">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 px-0">
+        <div class="header-container-secondary">
+          <div class="row align-items-center">
+            <div class="col-12 col-md-3 mb-2 mb-md-0">
+              <h1 class="page-heading m-0">Account Details</h1>
+            </div>
+          </div>
+
+          <img src="/assets/img/card-bg/profile-bg.png" alt="..." class="img-bg-object">
+        </div>
+      </div>
+
+      <div class="header-container bg-transparent">
+        <div class="row dark-border-b pb-3 align-items-center mb-3">
+          <div class="col-12 col-md-3 mb-2 pb-1 pb-md-0 mb-md-0 avatar-containerNname d-flex align-items-center gap-2">
+            <div class="avatar-img">
+              <img src="/assets/img/avatar.jpg" alt="...">
+            </div>
+            <h5 class="customer-name mb-0 p-0">{{leadDetails.customerName}}</h5>
+          </div>
+
+          <div class="col-12 col-md-9">
+            <div class="row justify-content-md-end">
+              <div class="col-auto d-flex gap-2">
+                <button class="btn primary-btn" type="button" (click)="bulkCall()"><i
+                    class="fa-solid fa-phone me-1"></i>
+                  Call</button>
+                <button *ngIf="editMode" class="btn primary-btn" type="button"
+                  [disabled]="!leadDetails.customerName||!leadDetails.customerEmail||!leadDetails.customerPhoneNumber"
+                  (click)="updateLeadDetails()">
+                  <i class="fa-solid fa-save me-1"></i> Update
+                </button>
+                <button *ngIf="!editMode" class="btn primary-btn" type="button" (click)="toggleEdit()">
+                  <i class="fa-solid fa-pen me-1"></i>Edit
+                </button>
+                <button class="btn primary-btn" type="button" (click)="backToList()">
+                  <i class="fa-solid fa-arrow-left me-1"></i>
+                  Back</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 px-1">
+            <div class="row">
+              <div class="col-12 col-md-8">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="header-container">
+                      <h6>Leads Information</h6>
+                      <div class="row">
+                        <div class="col-12 col-md-6 mb-3 d-flex align-items-center gap-2">
+                          <label for="email">Name<sup>*</sup></label>
+                          <input [disabled]="!editMode || leadDetails.leadStatus != leadStatusEnumState.New"
+                            id="customerName" type="text" [(ngModel)]="leadDetails.customerName" name="customerName"
+                            class="custom-input" [ngClass]="{'custom-input-border' : editMode }" />
+                        </div>
+
+                        <div class="col-12 col-md-6 mb-3 d-flex align-items-center gap-2">
+                          <label for="phone">Phone<sup>*</sup></label>
+                          <input [disabled]="!editMode || leadDetails.leadStatus != leadStatusEnumState.New" id="phone"
+                            [(ngModel)]="leadDetails.customerPhoneNumber" pattern="^[0-9]*$"
+                            (keypress)="validateNumberInput($event)" name="phone" class="custom-input"
+                            [ngClass]="{'custom-input-border' : editMode }" />
+                        </div>
+
+                        <div class="col-12 col-md-6 mb-3 d-flex align-items-center gap-2">
+                          <label for="email">Email<sup>*</sup></label>
+                          <input [disabled]="!editMode || leadDetails.leadStatus != leadStatusEnumState.New" id="email"
+                            type="text" [(ngModel)]="leadDetails.customerEmail" name="email" class="custom-input"
+                            [ngClass]="{'custom-input-border' : editMode }"
+                            [placeholder]="!editMode && !leadDetails.customerEmail ? '-' : ''" />
+                        </div>
+
+
+                        <div class="col-12 col-md-6 mb-3 d-flex align-items-center gap-2">
+                          <label for="status">Status<sup>*</sup></label>
+                          <select [(ngModel)]="leadDetails.leadStatus" [disabled]="!editMode"
+                            [ngClass]="{'select-border':editMode }">
+                            <option [value]="leadStatusEnumState.New">New</option>
+                            <option [value]="leadStatusEnumState.NotQualified">Not Qualified
+                            </option>
+                            <option [value]="leadStatusEnumState.Qualified">Qualified</option>
+                          </select>
+
+                        </div>
+
+                        <div class="col-12 col-md-6 mb-3 d-flex align-items-center gap-2">
+                          <label for="source">Source<sup>*</sup></label>
+                          <input disabled id="source" type="text" [(ngModel)]="leadDetails.sourceName" name="source"
+                            class="custom-input" [ngClass]="{'custom-input-border' : editMode }" />
+                        </div>
+
+                        <div class="col-12 col-md-6 mb-3 d-flex align-items-center gap-2">
+                          <label for="createdon">Added On<sup>*</sup></label>
+                          <p class="custom-input date-container mb-0 d-flex align-items-center"
+                            [ngClass]="{'custom-input-border' : editMode }">
+                            {{leadDetails.creationTime?.toDate() | date:
+                            "d MMM, y hh:mm:ss a"}}
+                          </p>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <div class="header-container">
+                      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-3">
+                        <h6>Call Recording & Transcript</h6>
+
+                        <div class="col-auto d-flex gap-2">
+                          <button class="btn primary-btn" (click)="viewCallLogs()">View
+                            Call logs</button>
+                        </div>
+                      </div>
+
+                      <div class="row" *ngIf="calldetails?.salesCall">
+                        <div class="col-12 col-md-6 mb-3">
+                          <label for="salescall">Sales Call<sup>*</sup></label>
+                          <p>{{calldetails.salesCall?.toDate()| date:
+                            "d MMM, y hh:mm:ss a"}}</p>
+                        </div>
+
+                        <div class="col-12 col-md-6 mb-3">
+                          <label for="duration">Duration (Min)<sup>*</sup></label>
+                          <input disabled id="duration" type="text" [(ngModel)]="calldetails.duration" name="duration"
+                            class="custom-input numberInput" />
+                        </div>
+
+                        <div class="col-12 mb-3" *ngIf="calldetails.summary !== null">
+                          <label for="transcript">Summary<sup>*</sup></label>
+                          <p>{{calldetails.summary}}</p>
+                        </div>
+                      </div>
+
+                      <div *ngIf="!calldetails?.salesCall" class="text-center noData-text">No Call
+                        Yet</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-4 pl-md-0">
+                <div class="col-12 mb-3 pl-md-0">
+                  <div class="header-container mb-3 ">
+                    <h6>Upcoming Actions</h6>
+                    <div class="row mt-2">
+
+                      <div class="col-12 mb-2">
+                        <div *ngIf="meetingDetails?.nextMeeting" class="header-container-secondary w-100 mt-2 mb-0">
+                          <label for="meeting" class="mb-1 d-block text-nowrap"><i
+                              class="fa-regular fa-calendar-days me-1"></i> Next
+                            Meeting</label>
+
+                          <p class="nextMeeting-date">
+                            {{meetingDetails.nextMeeting.toDate() | date:
+                            "d MMM, y"}}<span class='me-1'>
+                              {{ meetingDetails.nextMeeting.toDate() | date:
+                              "hh:mm:ss a" }}</span>
+                          </p>
+                        </div>
+                      </div>
+
+                      <!-- <div class="col-12 col-md-6 mb-2" *ngIf="meetingDetails?.nextMeeting">
+    <div class="bg-light-grad p-3 d-flex align-items-center justify-content-start rounded-2 h-100">
+      <div>
+        <label class="mb-1"><i class="fa-solid fa-clock"></i> <span class="fw-semibold"> Follow-up
+            Reminder</span></label>
+        <p>Send pricing proposal by Jan 22,2025</p>
+      </div>
+    </div>
+  </div> -->
+                      <!-- <div class="col-12 col-md-6 mb-2" *ngIf="meetingDetails?.nextMeeting">
+    <div class="bg-light-grad p-3 d-flex align-items-center justify-content-start rounded-2 h-100">
+      <div>
+        <label class="mb-1"><i class="fa-solid fa-clock"></i> <span class="fw-semibold"> Follow-up
+            Reminder</span></label>
+        <p>Send pricing proposal by Jan 22,2025</p>
+      </div>
+    </div>
+  </div> -->
+
+                      <div class="col-12" *ngIf="!meetingDetails?.nextMeeting">
+                        <h5 class="noData-text">No Meeting Yet!</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 mb-3 pl-md-0">
+                  <div class="header-container h-100 ">
+                    <h6>Notes</h6>
+                    <div class="row">
+                      <div class="col-12 col-md-12 mb-3 mt-2">
+                        <!-- <label for="notes">Notes</label> -->
+
+                        <textarea id="notes" (input)="removeSpaces($event)" [(ngModel)]="noteDetail.note" name="notes"
+                          class="custom-textarea" placeholder="Take a note..."> </textarea>
+
+                        <button (click)="saveNote()"
+                          class="btn primary-btn mt-2 w-100 text-center justify-content-center"
+                          [disabled]="!noteDetail.note">
+                          Save
+                        </button>
+
+                        <div class="custom-card p-0 border-0 p-0 rounded-0 mt-3">
+                          <h6 class="mb-2" *ngIf="noteDetails?.length>0">Meeting Notes:</h6>
+                          <div class="created-note-wrapper">
+                            <div *ngFor="let data of noteDetails" class="border-0 created-note mb-2">
+                              <p class="mb-0">{{ data?.note }}</p>
+                              <span class="text-color">{{data.creationTime | date:
+                                "d MMM, y hh:mm:ss a"}}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+<div class="loader" *ngIf="isLoading"></div>

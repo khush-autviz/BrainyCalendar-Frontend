@@ -1,0 +1,100 @@
+::ng-deep .md-drppicker.shown {
+    top: 55px !important;
+}
+
+::ng-deep .datepicker-wrapper {
+
+    i {
+        color: var(--textColor);
+    }
+
+    .md-drppicker.shown {
+        display: flex;
+        height: fit-content;
+        scale: .85;
+
+        .ranges {
+            height: 240px;
+            overflow-y: auto;
+            width: 120px;
+        }
+
+        .btn {
+            background: var(--highlight-blue);
+            text-transform: capitalize;
+            font-weight: 500;
+            font-size: 14px;
+        }
+    }
+
+    .input-calendar {
+        padding-left: 36px;
+        background: transparent;
+        border: 1px solid var(--border-color);
+        border-radius: .4rem;
+        height: 38px;
+        font-size: 12px;
+        color: var(--textColor);
+        text-transform: capitalize;
+        min-width: 210px;
+
+        &::placeholder {
+            font-size: 12px;
+            color: var(--light-textColor);
+            text-transform: capitalize;
+        }
+
+        &:focus,
+        &:focus-visible,
+        &:target {
+            outline: none;
+            box-shadow: none;
+        }
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .datepicker-wrapper {
+
+        .md-drppicker.shown {
+            /* scale: 0.8; */
+            left: -80px;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    .datepicker-wrapper {
+        .md-drppicker.shown {
+            scale: .675;
+            display: grid;
+            grid-template-columns: auto auto;
+
+            .ranges {
+                grid-column: 1/span 2;
+                width: 100%;
+                height: fit-content;
+                overflow-y: hidden;
+
+                ul {
+                    padding: 4px 4px;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 12px;
+                    overflow-x: scroll;
+
+                    li button {
+                        white-space: nowrap;
+                    }
+
+                    li button.active {
+                        border-radius: .4rem;
+                    }
+                }
+            }
+        }
+    }
+
+}

@@ -1,0 +1,15 @@
+<button (click)="planCheckout()" *ngIf="plan" class="d-flex gap-2 px-2 minNplan-container">
+  <!-- Show Trial Plan only if the user is on a trial and has no upgraded plan -->
+  <p *ngIf="plan.isTrialUser && !plan.activePlan">Trial Plan | {{ plan.trialCalls }} Calls left</p>
+
+  <div *ngIf="!plan.isTrialUser" class="d-flex align-items-center">
+    <div class="d-flex align-items-center gap-2">
+      <p *ngIf="!plan.isTrialUser" class="pe-1">
+        Plan: {{ plan.activePlan ? plan.activePlan : "Expired" }}
+      </p>
+    </div>
+    <p *ngIf="!plan.isTrialUser">
+      | Minutes Left: {{ plan.minutesLeft }}
+    </p>
+  </div>
+</button>
