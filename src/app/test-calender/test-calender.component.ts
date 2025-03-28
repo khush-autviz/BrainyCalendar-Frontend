@@ -3,7 +3,6 @@ import * as moment from 'moment-timezone';
 import { MeetingSchedule, MeetingSchedulerDTO, MeetingScheduleServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import Calendar from 'tui-calendar';
 import { NotifyService } from '@node_modules/abp-ng2-module';
-import { dA } from '@node_modules/@fullcalendar/core/internal-common';
 
 
 @Component({
@@ -18,8 +17,8 @@ export class TestCalenderComponent implements AfterViewInit {
   isModalOpen = false;
   isEditModalOpen = false;
   isLoading: boolean = false
-  newEvent = { title: '', description: '', start: '', end: '' };
-  editedEvent = { id: '', title: '', description: '', start: '', end: '' };
+  newEvent = { description: '', start: '', end: '' };
+  editedEvent = { id: '', description: '', start: '', end: '' };
   dateRange = {
     start: moment().startOf('isoWeek').toISOString(),
     end: moment().endOf('isoWeek').toISOString()
@@ -33,7 +32,7 @@ export class TestCalenderComponent implements AfterViewInit {
   // executes on first render
   ngAfterViewInit(): void {
     this.calendar = new Calendar(this.calendarContainer.nativeElement, {
-      defaultView: 'month',
+      defaultView: 'week',
       taskView: true,
       scheduleView: true,
       useCreationPopup: false,
@@ -55,6 +54,7 @@ export class TestCalenderComponent implements AfterViewInit {
     });
 
     this.loadEvents();
+    this.changeView('month')
     this.updateDateLabel()
   }
 
@@ -97,7 +97,7 @@ export class TestCalenderComponent implements AfterViewInit {
 
   // Modal for create event
   openCustomEventPopup(start: Date, end: Date) {
-    this.newEvent = { title: '', description: '', start: '', end: '' };
+    this.newEvent = { description: '', start: '', end: '' };
     this.newEvent.start = moment(start).format('YYYY-MM-DDTHH:mm');
     this.newEvent.end = moment(end).format('YYYY-MM-DDTHH:mm');
 
@@ -112,7 +112,6 @@ export class TestCalenderComponent implements AfterViewInit {
     console.log('edit', event);
     this.editedEvent = {
       id: event.id,
-      title: event.title,
       description: event.description ?? 'no title',
       start: moment(event.start).format('YYYY-MM-DDTHH:mm'),
       end: moment(event.end).format('YYYY-MM-DDTHH:mm'),
@@ -148,12 +147,6 @@ export class TestCalenderComponent implements AfterViewInit {
 
   // update events (edit)
   updateEvent() {
-    // let updatedMeeting = new MeetingSchedule();
-    // updatedMeeting.id = Number(this.editedEvent.id);
-    // updatedMeeting.description = this.editedEvent.description;
-    // updatedMeeting.scheduleDateTime = moment(this.editedEvent.start);
-  
-    // this.isLoading = true;
     
     let updatedEvent = new MeetingSchedulerDTO();
     updatedEvent.id = Number(this.editedEvent.id);
@@ -179,7 +172,7 @@ export class TestCalenderComponent implements AfterViewInit {
   // closes create event modal
   modalClose() {
     this.isModalOpen = false;
-    this.newEvent = { title: '', description: '', start: '', end: '' };
+    this.newEvent = { description: '', start: '', end: '' };
 
     if (this.calendar) {
       // Switch views to force UI reset without losing events
@@ -194,7 +187,7 @@ export class TestCalenderComponent implements AfterViewInit {
   // close update event modal
   closeEditModal() {
     this.isEditModalOpen = false;
-    this.editedEvent = { id: '', title: '', description: '', start: '', end: '' };
+    this.editedEvent = { id: '', description: '', start: '', end: '' };
     this.cdr.detectChanges();
   }
 
