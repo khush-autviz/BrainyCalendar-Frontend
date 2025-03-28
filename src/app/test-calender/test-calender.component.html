@@ -1,62 +1,83 @@
-<div #calendarContainer style="height: 800px"></div>
-
-<!-- Create event Modal -->
-<div *ngIf="isModalOpen" class="modal-overlay">
-  <div class="modal-content">
-    <h3>Create Event</h3>
-
-    <label>Title:</label>
-    <input type="text" [(ngModel)]="newEvent.title" />
-
-    <label>Description</label>
-    <input
-      type="text"
-      [(ngModel)]="newEvent.description"
-      placeholder="Enter Description"
-    />
-
-    <label>Start Time:</label>
-    <input type="datetime-local" [(ngModel)]="newEvent.start" />
-
-    <label>End Time:</label>
-    <input type="datetime-local" [(ngModel)]="newEvent.end" />
-
-    <div class="button-container">
-      <button class="save-btn" (click)="createEvent()">Save</button>
-      <button class="cancel-btn" (click)="modalClose()">Cancel</button>
+<div style="margin-top: 100px">
+  <div class="d-flex justify-content-between">
+    <div>
+      <button class="btn btn-secondary" (click)="navigate('today')">
+        Today
+      </button>
+      <button class="btn btn-secondary" (click)="navigate('prev')">Prev</button>
+      <button class="btn btn-secondary" (click)="navigate('next')">Next</button>
+      <span>{{ currentDateLabel }}</span>
     </div>
-  </div>
-</div>
-
-<!-- update event modal -->
-<div *ngIf="isEditModalOpen" class="modal-overlay">
-  <div class="modal-content">
-    <div class="d-flex justify-content-between">
-      <h3>Edit Event</h3>
-      <button
-        class="btn btn-danger"
-        style="width: fit-content"
-        (click)="deleteEvent()"
-      >
-        DELETE
+    <div>
+      <button class="btn btn-secondary" (click)="changeView('day')">Day</button>
+      <button class="btn btn-secondary" (click)="changeView('week')">
+        Week
+      </button>
+      <button class="btn btn-secondary" (click)="changeView('month')">
+        Month
       </button>
     </div>
+  </div>
+  <div #calendarContainer></div>
 
-    <label>Title:</label>
-    <input type="text" [(ngModel)]="editedEvent.title" />
+  <!-- Create event Modal -->
+  <div *ngIf="isModalOpen" class="modal-overlay">
+    <div class="modal-content">
+      <h3>Create Event</h3>
 
-    <label>Description:</label>
-    <input type="text" [(ngModel)]="editedEvent.description" />
+      <label>Title:</label>
+      <input type="text" [(ngModel)]="newEvent.title" />
 
-    <label>Start Time:</label>
-    <input type="datetime-local" [(ngModel)]="editedEvent.start" />
+      <label>Description</label>
+      <input
+        type="text"
+        [(ngModel)]="newEvent.description"
+        placeholder="Enter Description"
+      />
 
-    <label>End Time:</label>
-    <input type="datetime-local" [(ngModel)]="editedEvent.end" />
+      <label>Start Time:</label>
+      <input type="datetime-local" [(ngModel)]="newEvent.start" />
 
-    <div class="button-container">
-      <button class="save-btn" (click)="updateEvent()">Save</button>
-      <button class="cancel-btn" (click)="closeEditModal()">Cancel</button>
+      <label>End Time:</label>
+      <input type="datetime-local" [(ngModel)]="newEvent.end" />
+
+      <div class="button-container">
+        <button class="save-btn" (click)="createEvent()">Save</button>
+        <button class="cancel-btn" (click)="modalClose()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- update event modal -->
+  <div *ngIf="isEditModalOpen" class="modal-overlay">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between">
+        <h3>Edit Event</h3>
+        <button
+          class="btn btn-danger"
+          style="width: fit-content"
+          (click)="deleteEvent()"
+        >
+          DELETE
+        </button>
+      </div>
+
+      <label>Title:</label>
+      <input type="text" [(ngModel)]="editedEvent.title" />
+
+      <label>Description:</label>
+      <input type="text" [(ngModel)]="editedEvent.description" />
+
+      <label>Start Time:</label>
+      <input type="datetime-local" [(ngModel)]="editedEvent.start" />
+
+      <label>End Time:</label>
+      <input type="datetime-local" [(ngModel)]="editedEvent.end" />
+
+      <div class="button-container">
+        <button class="save-btn" (click)="updateEvent()">Save</button>
+        <button class="cancel-btn" (click)="closeEditModal()">Cancel</button>
+      </div>
     </div>
   </div>
 </div>

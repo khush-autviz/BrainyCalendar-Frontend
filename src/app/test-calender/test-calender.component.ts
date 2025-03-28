@@ -3,6 +3,7 @@ import * as moment from 'moment-timezone';
 import { MeetingSchedule, MeetingSchedulerDTO, MeetingScheduleServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import Calendar from 'tui-calendar';
 import { NotifyService } from '@node_modules/abp-ng2-module';
+import { dA } from '@node_modules/@fullcalendar/core/internal-common';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class TestCalenderComponent implements AfterViewInit {
     end: moment().endOf('isoWeek').toISOString()
   };
   meetings = [];
+  currentDateLabel: String = ''
   
   constructor(public meetingService: MeetingScheduleServiceServiceProxy, private cdr: ChangeDetectorRef, public notifyService: NotifyService,) {}
 
@@ -36,6 +38,12 @@ export class TestCalenderComponent implements AfterViewInit {
       scheduleView: true,
       useCreationPopup: false,
       useDetailPopup: false,   // false for custom edit modal
+      week: {
+        startDayOfWeek: 1 
+      },
+      month: {
+        startDayOfWeek: 1
+      }
     });
 
     this.calendar.on('beforeCreateSchedule', (event) => {
@@ -47,8 +55,45 @@ export class TestCalenderComponent implements AfterViewInit {
     });
 
     this.loadEvents();
+    this.updateDateLabel()
   }
 
+  // change view day, week, month
+  changeView(view: 'day' | 'week' | 'month') {
+    this.calendar.changeView(view)
+    this.updateDateLabel()
+  }
+
+// navigate between dates
+  navigate(action: 'prev' | 'next' | 'today') {
+    if (action === 'prev') {
+      this.calendar.prev();
+    } else if (action === 'next') {
+      this.calendar.next();
+    } else if (action === 'today') {
+      this.calendar.today();
+    }
+  
+    this.updateDateLabel(); 
+  }
+
+  //update the dates while navigating
+  updateDateLabel() {
+    const view = this.calendar.getViewName()
+    const date = this.calendar.getDate()
+
+    if (view === 'month') {
+      this.currentDateLabel = moment(date.toDate()).format('MMMM YYYY')
+    }
+    else if (view === 'week') {
+      const startOfWeek = moment(date.toDate()).startOf('isoWeek').format('DD MMM YYYY')
+      const endOfWeek = moment(date.toDate()).endOf('isoWeek').format('DD MMM YYYY')
+      this.currentDateLabel = `${startOfWeek} - ${endOfWeek}`
+    }
+    else {
+      this.currentDateLabel = moment(date.toDate()).format('ddd, D MMM YYYY')
+    }
+  }
 
   // Modal for create event
   openCustomEventPopup(start: Date, end: Date) {

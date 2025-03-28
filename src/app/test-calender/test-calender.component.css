@@ -53,3 +53,15 @@
 ::ng-deep .tui-full-calendar-weekday-schedule-bullet {
   display: none;
 }
+
+/* ::ng-deep .tui-full-calendar-layout {
+  height: 400px !important; 
+}
+
+::ng--deep .tui-full-calendar-month {
+  min-height: 200px !important; 
+} */
+
+::ng-deep .tui-view-65 {
+  height: 600px !important;
+}
