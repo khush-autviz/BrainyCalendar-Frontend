@@ -28,3 +28,27 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="isEditModalOpen" class="modal-overlay">
+  <div class="modal-content">
+    <button class="close-btn" (click)="closeEditModal()">×</button>
+    <h3>Edit Event</h3>
+
+    <label>Title:</label>
+    <input type="text" [(ngModel)]="editedEvent.title" />
+
+    <label>Description:</label>
+    <input type="text" [(ngModel)]="editedEvent.description" />
+
+    <label>Start Time:</label>
+    <input type="datetime-local" [(ngModel)]="editedEvent.start" />
+
+    <label>End Time:</label>
+    <input type="datetime-local" [(ngModel)]="editedEvent.end" />
+
+    <div class="button-container">
+      <button class="save-btn" (click)="saveEditedEvent()">Save</button>
+      <button class="cancel-btn" (click)="closeEditModal()">Cancel</button>
+    </div>
+  </div>
+</div>

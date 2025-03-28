@@ -15,9 +15,11 @@ export class TestCalenderComponent implements AfterViewInit {
   @ViewChild('calendarContainer', { static: true }) calendarContainer!: ElementRef;
   calendar!: Calendar;
   isModalOpen = false;
+  isEditModalOpen = false;
   isLoading: boolean = false
   
   newEvent = { title: '', description: '', start: '', end: '' };
+  editedEvent = { id: '', title: '', description: '', start: '', end: '' };
 
   dateRange = {
     start: moment().startOf('isoWeek').toISOString(),
@@ -35,11 +37,15 @@ export class TestCalenderComponent implements AfterViewInit {
       taskView: true,
       scheduleView: true,
       useCreationPopup: false,
-      useDetailPopup: true,
+      useDetailPopup: false,   // false for custom edit modal
     });
 
     this.calendar.on('beforeCreateSchedule', (event) => {
       this.openCustomEventPopup(event.start, event.end);
+    });
+
+    this.calendar.on('clickSchedule', (event) => {
+      this.openEditModal(event.schedule);
     });
 
     // this.calendar.render();
@@ -67,6 +73,21 @@ export class TestCalenderComponent implements AfterViewInit {
       this.isModalOpen = true;
       this.cdr.detectChanges();
     }, 0);
+  }
+
+  openEditModal(event) {
+    console.log('edit', event);
+    
+    this.editedEvent = {
+      id: event.id,
+      title: event.title,
+      description: event.description ?? 'no title',
+      start: moment(event.start).format('YYYY-MM-DDTHH:mm'),
+      end: moment(event.end).format('YYYY-MM-DDTHH:mm'),
+    };
+  
+    this.isEditModalOpen = true;
+    this.cdr.detectChanges(); // Ensure UI updates
   }
 
   createEvent() {
@@ -97,10 +118,56 @@ export class TestCalenderComponent implements AfterViewInit {
 
   }
 
+  saveEditedEvent() {
+    let updatedMeeting = new MeetingSchedule();
+    updatedMeeting.id = Number(this.editedEvent.id);
+    updatedMeeting.description = this.editedEvent.description;
+    updatedMeeting.scheduleDateTime = moment(this.editedEvent.start);
+  
+    this.isLoading = true;
+    
+    // this.meetingService.updateMeeting(updatedMeeting).subscribe(
+    //   (response) => {
+    //     this.isLoading = false;
+    //     this.notifyService.success("Meeting updated successfully");
+  
+    //     // Update event in calendar
+    //     this.calendar.updateSchedule(
+    //       this.editedEvent.id,
+    //       '1',
+    //       {
+    //         title: this.editedEvent.title,
+    //         start: moment(this.editedEvent.start).toISOString(),
+    //         end: moment(this.editedEvent.end).toISOString(),
+    //         raw: { description: this.editedEvent.description }
+    //       }
+    //     );
+  
+    //     this.closeEditModal();
+    //   },
+    //   (error) => {
+    //     this.isLoading = false;
+    //     this.notifyService.error("Error updating meeting");
+    //   }
+    // );
+  }
+
   modalClose() {
     this.isModalOpen = false;
     this.newEvent = { title: '', description: '', start: '', end: '' };
-    this.calendar.clear();
+
+    if (this.calendar) {
+      // Switch views to force UI reset without losing events
+      const currentView = this.calendar.getViewName();
+      this.calendar.changeView('day'); // Temporarily switch view
+      this.calendar.changeView(currentView); // Switch back to original view
+    }
+    this.cdr.detectChanges();
+  }
+
+  closeEditModal() {
+    this.isEditModalOpen = false;
+    this.editedEvent = { id: '', title: '', description: '', start: '', end: '' };
     this.cdr.detectChanges();
   }
 
