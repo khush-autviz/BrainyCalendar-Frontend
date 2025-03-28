@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import * as moment from 'moment-timezone';
-import { MeetingSchedule, MeetingScheduleServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { MeetingSchedule, MeetingSchedulerDTO, MeetingScheduleServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import Calendar from 'tui-calendar';
 import { NotifyService } from '@node_modules/abp-ng2-module';
 
@@ -17,20 +17,18 @@ export class TestCalenderComponent implements AfterViewInit {
   isModalOpen = false;
   isEditModalOpen = false;
   isLoading: boolean = false
-  
   newEvent = { title: '', description: '', start: '', end: '' };
   editedEvent = { id: '', title: '', description: '', start: '', end: '' };
-
   dateRange = {
     start: moment().startOf('isoWeek').toISOString(),
     end: moment().endOf('isoWeek').toISOString()
   };
-  
   meetings = [];
+  
+  constructor(public meetingService: MeetingScheduleServiceServiceProxy, private cdr: ChangeDetectorRef, public notifyService: NotifyService,) {}
 
-    
-    constructor(public meetingService: MeetingScheduleServiceServiceProxy, private cdr: ChangeDetectorRef, public notifyService: NotifyService,) {}
 
+  // executes on first render
   ngAfterViewInit(): void {
     this.calendar = new Calendar(this.calendarContainer.nativeElement, {
       defaultView: 'month',
@@ -48,24 +46,13 @@ export class TestCalenderComponent implements AfterViewInit {
       this.openEditModal(event.schedule);
     });
 
-    // this.calendar.render();
-    this.loadMeetings();
-    this.calendar.createSchedules([
-      {
-        id: String(Date.now()),
-        calendarId: '1',
-        title: this.newEvent.title, // Removed quotes to use actual value
-        category: 'time',
-        start: moment().add(1, 'day').startOf('day').toISOString(), // Set to tomorrow's start time (00:00)
-        end: moment().add(1, 'day').endOf('day').toISOString(), // Set to tomorrow's end time (23:59)
-      }
-    ]);
-
+    this.loadEvents();
   }
 
+
+  // Modal for create event
   openCustomEventPopup(start: Date, end: Date) {
     this.newEvent = { title: '', description: '', start: '', end: '' };
-
     this.newEvent.start = moment(start).format('YYYY-MM-DDTHH:mm');
     this.newEvent.end = moment(end).format('YYYY-MM-DDTHH:mm');
 
@@ -75,9 +62,9 @@ export class TestCalenderComponent implements AfterViewInit {
     }, 0);
   }
 
+  // modal for update event 
   openEditModal(event) {
     console.log('edit', event);
-    
     this.editedEvent = {
       id: event.id,
       title: event.title,
@@ -85,27 +72,24 @@ export class TestCalenderComponent implements AfterViewInit {
       start: moment(event.start).format('YYYY-MM-DDTHH:mm'),
       end: moment(event.end).format('YYYY-MM-DDTHH:mm'),
     };
-  
     this.isEditModalOpen = true;
     this.cdr.detectChanges(); // Ensure UI updates
   }
 
-  createEvent() {
 
+  // Create events
+  createEvent() {
      let newMeeting = new MeetingSchedule();
         newMeeting.scheduleDateTime = moment(this.newEvent.start);
-        newMeeting.description = this.newEvent.description
-       
+        newMeeting.description = this.newEvent.description;
         this.isLoading = true;
     
         this.meetingService.insertMeeting(newMeeting)
           .subscribe(
             (response) => {
               this.isLoading = false;
-              console.log(this.newEvent.description,"descr");
-              
-    
-              this.loadMeetings();
+              console.log(response, "create");  
+              this.loadEvents();
               this.notifyService.success("Meeting scheduled successfully");
               this.modalClose()
             },
@@ -114,44 +98,40 @@ export class TestCalenderComponent implements AfterViewInit {
               this.notifyService.error("Error scheduling meeting");
             }
           );
-
-
   }
 
-  saveEditedEvent() {
-    let updatedMeeting = new MeetingSchedule();
-    updatedMeeting.id = Number(this.editedEvent.id);
-    updatedMeeting.description = this.editedEvent.description;
-    updatedMeeting.scheduleDateTime = moment(this.editedEvent.start);
+
+  // update events (edit)
+  updateEvent() {
+    // let updatedMeeting = new MeetingSchedule();
+    // updatedMeeting.id = Number(this.editedEvent.id);
+    // updatedMeeting.description = this.editedEvent.description;
+    // updatedMeeting.scheduleDateTime = moment(this.editedEvent.start);
   
-    this.isLoading = true;
+    // this.isLoading = true;
     
-    // this.meetingService.updateMeeting(updatedMeeting).subscribe(
-    //   (response) => {
-    //     this.isLoading = false;
-    //     this.notifyService.success("Meeting updated successfully");
-  
-    //     // Update event in calendar
-    //     this.calendar.updateSchedule(
-    //       this.editedEvent.id,
-    //       '1',
-    //       {
-    //         title: this.editedEvent.title,
-    //         start: moment(this.editedEvent.start).toISOString(),
-    //         end: moment(this.editedEvent.end).toISOString(),
-    //         raw: { description: this.editedEvent.description }
-    //       }
-    //     );
-  
-    //     this.closeEditModal();
-    //   },
-    //   (error) => {
-    //     this.isLoading = false;
-    //     this.notifyService.error("Error updating meeting");
-    //   }
-    // );
+    let updatedEvent = new MeetingSchedulerDTO();
+    updatedEvent.id = Number(this.editedEvent.id);
+    updatedEvent.startDate = moment(this.editedEvent.start);
+    updatedEvent.description = this.editedEvent.description;
+
+    this.isLoading = true
+    this.meetingService.updateMeetingSchedule(updatedEvent)
+      .subscribe(
+        (response) => {
+          this.isLoading = false
+          this.notifyService.success('Meeting schedule updated successfully');
+          this.loadEvents()
+          this.closeEditModal()
+        },
+        (error) => {
+          this.isLoading = false
+          this.notifyService.error('Error updating meeting schedule');
+        }
+      );
   }
 
+  // closes create event modal
   modalClose() {
     this.isModalOpen = false;
     this.newEvent = { title: '', description: '', start: '', end: '' };
@@ -165,14 +145,16 @@ export class TestCalenderComponent implements AfterViewInit {
     this.cdr.detectChanges();
   }
 
+
+  // close update event modal
   closeEditModal() {
     this.isEditModalOpen = false;
     this.editedEvent = { id: '', title: '', description: '', start: '', end: '' };
     this.cdr.detectChanges();
   }
 
-//   loadMeetings
-  public loadMeetings(): void {
+//  get events (Read)
+  public loadEvents(): void {
     this.isLoading = true
     this.meetingService
       .getAllMeetings(
@@ -189,7 +171,7 @@ export class TestCalenderComponent implements AfterViewInit {
           this.isLoading = false
           this.meetings = result.items || [];
           // this.populateSchedulerEvents();
-                  // Transform data into TUI Calendar format
+          // Transform data into TUI Calendar format
         let formattedMeetings = this.meetings.map(meeting => ({
           id: String(meeting.id),
           calendarId: '1',
@@ -197,17 +179,32 @@ export class TestCalenderComponent implements AfterViewInit {
           category: 'time',
           start: moment(meeting.scheduleDateTime).toISOString(), // Convert to correct format
           end: moment(meeting.scheduleDateTime).add(1, 'hour').toISOString(), // Default 1-hour duration
+          bgColor: 'red'
         }));
-          this.calendar.createSchedules(formattedMeetings); 
-          console.log("meetings",this.meetings);
+        this.calendar.createSchedules(formattedMeetings); 
+        console.log("meetings",this.meetings);
+          console.log("formatted",formattedMeetings);
           
-
         },
         (error) => {
           this.isLoading = false
           console.error('Error fetching meetings:', error);
         }
       );
+  }
+
+  deleteEvent() {
+      this.meetingService.deleteMeeting(Number(this.editedEvent.id)).subscribe(
+        (response) => {
+          this.notifyService.success("Meeting deleted successfully");
+          this.closeEditModal()
+        },
+        (error) => {
+          this.notifyService.error("Error deleting meeting");
+        }
+      );
+    console.log("Delete");
+    
   }
 
 }

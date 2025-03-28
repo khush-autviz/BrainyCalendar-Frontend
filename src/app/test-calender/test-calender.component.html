@@ -1,9 +1,8 @@
 <div #calendarContainer style="height: 800px"></div>
 
-<!-- Modal -->
+<!-- Create event Modal -->
 <div *ngIf="isModalOpen" class="modal-overlay">
   <div class="modal-content">
-    <button class="close-btn" (click)="modalClose()">×</button>
     <h3>Create Event</h3>
 
     <label>Title:</label>
@@ -13,7 +12,7 @@
     <input
       type="text"
       [(ngModel)]="newEvent.description"
-      placeholder="Enter escription"
+      placeholder="Enter Description"
     />
 
     <label>Start Time:</label>
@@ -29,10 +28,19 @@
   </div>
 </div>
 
+<!-- update event modal -->
 <div *ngIf="isEditModalOpen" class="modal-overlay">
   <div class="modal-content">
-    <button class="close-btn" (click)="closeEditModal()">×</button>
-    <h3>Edit Event</h3>
+    <div class="d-flex justify-content-between">
+      <h3>Edit Event</h3>
+      <button
+        class="btn btn-danger"
+        style="width: fit-content"
+        (click)="deleteEvent()"
+      >
+        DELETE
+      </button>
+    </div>
 
     <label>Title:</label>
     <input type="text" [(ngModel)]="editedEvent.title" />
@@ -47,7 +55,7 @@
     <input type="datetime-local" [(ngModel)]="editedEvent.end" />
 
     <div class="button-container">
-      <button class="save-btn" (click)="saveEditedEvent()">Save</button>
+      <button class="save-btn" (click)="updateEvent()">Save</button>
       <button class="cancel-btn" (click)="closeEditModal()">Cancel</button>
     </div>
   </div>

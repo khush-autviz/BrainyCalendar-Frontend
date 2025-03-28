@@ -230,6 +230,8 @@ export class MeetingCalendarComponent implements OnInit {
     updatedEvent.startDate = moment(event.start_date);
     updatedEvent.description = event.text;
 
+    console.log("update meeting", updatedEvent);
+    
     this.isLoading = true
     this.meetingService.updateMeetingSchedule(updatedEvent)
       .subscribe(
